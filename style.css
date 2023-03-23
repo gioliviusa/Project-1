@@ -112,5 +112,9 @@ body {
   clear: both;
 }
 footer {
-font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;    
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;   
+display: table;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
 }
