@@ -1,4 +1,4 @@
-/*
+
 html {
     height: 100%;
 }
@@ -10,7 +10,7 @@ html {
 body {
     font-family: 'Open Sans', sans-serif;
 }
-*/
+
 .container {
     width: 1170px;
     padding-right: 15px;
@@ -60,13 +60,21 @@ body {
     cursor: pointer;
 }
 
-.landing-page .header-area .links li:last-child {
+.landing-page .header-area .links li:last-child  {
     border: 0;
     border-radius: 20px;
     padding: 10px 18px;
     color: #FFF;
     background-color: #6c63ff;
 }
+
+
+ a:active {
+    color: none;
+
+}
+
+
 
 .landing-page .info {
     width: 35%;
@@ -118,3 +126,4 @@ text-align: center;
 margin-left: auto;
 margin-right: auto;
 }
+
