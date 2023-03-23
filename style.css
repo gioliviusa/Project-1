@@ -37,12 +37,14 @@ body {
     font-weight: 200;
     font-size: 18px;
     cursor: pointer;
-    width: 50; 
-    height: 50;} 
-    .img {
-     width: 24px;
-     margin-right: 12px;
-    }
+    width: 600; 
+    height: 600;} 
+    
+    /* .img {
+     width: 600px;
+     margin-right: 600px;
+
+    } */
    
 
 .landing-page .header-area .links {
