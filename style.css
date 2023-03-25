@@ -3,9 +3,14 @@ html {
     height: 100%;
 }
 
-{
-    box-sizing: border-box;
+.webcontainer {
+width: fit-content;
+
 }
+
+/* {
+    box-sizing : border-box;
+} */
 
 body {
     font-family: 'Open Sans', sans-serif;
