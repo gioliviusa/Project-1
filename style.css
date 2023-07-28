@@ -149,7 +149,7 @@ margin-right: auto;
 }
 
 /*add the mobile */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
     .landing-page .header-area {
       flex-direction: column;
       align-items: flex-start;
