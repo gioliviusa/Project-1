@@ -99,4 +99,8 @@ footer {
     .landing-page .info button {
         font-size: 14px;
     }
+
+    .landing-page .image img {
+        max-width: 100%;
+    }
 }
