@@ -3,11 +3,7 @@ html, body {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
 }
-.modal {
-    width: 50vw;
-    height: 50vh;
-    height:  calc(var(--vh, 1vh) * 50);
-}
+
 
 /* const resizeOps = () => {
     document.documentElement.style.setProperty("--vh" , wind)
@@ -16,19 +12,6 @@ html, body {
 resizeOps();
 window.addEventListener("resize" , resizeOps); */
 
-
-/* .webcontainer {
-width: fit-content;
-
-} */
-
-/* {
-    box-sizing : border-box;
-} */
-
-/* body {
-    font-family: 'Open Sans', sans-serif;
-} */
 
 .container {
     width: 1170px;
