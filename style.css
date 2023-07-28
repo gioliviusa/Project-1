@@ -153,6 +153,7 @@ margin-right: auto;
 
     .landing-page .info {
       width: 100%;
+      height: 0;
     }
 
     .landing-page .info h1 {
