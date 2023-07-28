@@ -148,3 +148,31 @@ margin-left: auto;
 margin-right: auto;
 }
 
+/*add the mobile */
+@media screen and (max-width: 768px) {
+    .landing-page .header-area {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .landing-page .header-area .logo {
+      margin-bottom: 15px;
+    }
+
+    .landing-page .header-area .links {
+      text-align: left;
+    }
+
+    .landing-page .header-area .links li {
+      display: block;
+      margin: 5px 0;
+    }
+
+    .landing-page .info {
+      width: 100%;
+    }
+
+    .landing-page .info h1 {
+      font-size: 24px;
+    }
+  }
