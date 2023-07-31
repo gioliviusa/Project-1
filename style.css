@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: 'play', sans-serif;
+
 }
 
 /* Start Landing Page */
@@ -31,6 +32,17 @@
   height: 60px;
   
   position: flex-start;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.landing-page .header-area .logo img {
+    width: 60px;
+    height: 60px;
 }
 
 .landing-page .header-area .links {
@@ -101,6 +113,10 @@
   line-height: 1.4;
   color: #5d5d5d;
  
+    font-size: 24px;
+    margin: 0 0 15px;
+    line-height: 1.4;
+    color: #5d5d5d;
 }
 
 .landing-page .info p {
@@ -121,6 +137,14 @@
   text-decoration: none;
   font-family: "Play", sans-serif;
   
+    border: 0;
+    border-radius: 20px;
+    padding: 12px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #6c63ff;
+    text-decoration: none;
 }
 
 .landing-page .image img {
@@ -129,7 +153,7 @@
 }
 
 .clearfix {
-  clear: both;
+    clear: both;
 }
 
 
@@ -202,46 +226,3 @@
   }
   
 
-/* Media Queries for Mobile Devices */
-@media screen and (max-width: 480px) {
-  .landing-page .header-area {
-    padding: 10px 0px;
-    
-  }
-
-  .landing-page .header-area .links ul li {
-    display: flex;
-    margin: 10px 0px;
-    text-align: center;
-    
-  }
-
-  .landing-page .info h1 {
-      font-size: 22px;
-  }
-
-  .landing-page .info button {
-      font-size: 14px;
-  }
-
-  .landing-page .image img {
-      max-width: 100%;
-  }
-
-
-
-  .main{
-    flex-direction: column;
-  
-  }
-.info,
-.image{
-  width: 100%;
-
-}
-
-footer {
-  position: relative;
-  bottom: 0;
-}
-}
