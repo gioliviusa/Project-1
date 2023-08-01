@@ -113,10 +113,10 @@
   line-height: 1.4;
   color: #5d5d5d;
  
-    font-size: 24px;
-    margin: 0 0 15px;
-    line-height: 1.4;
-    color: #5d5d5d;
+  font-size: 24px;
+  margin: 0 0 15px;
+  line-height: 1.4;
+  color: #5d5d5d;
 }
 
 .landing-page .info p {
@@ -137,14 +137,14 @@
   text-decoration: none;
   font-family: "Play", sans-serif;
   
-    border: 0;
-    border-radius: 20px;
-    padding: 12px 30px;
-    margin-top: 15px;
-    cursor: pointer;
-    color: #FFF;
-    background-color: #6c63ff;
-    text-decoration: none;
+  border: 0;
+  border-radius: 20px;
+  padding: 12px 30px;
+  margin-top: 15px;
+  cursor: pointer;
+  color: #FFF;
+  background-color: #6c63ff;
+  text-decoration: none;
 }
 
 .landing-page .image img {
@@ -199,18 +199,24 @@
   @media (max-width: 720px) {
      .landing-page .header-area  .links   { 
       display: table;
-      margin: 2px 0px;
-      text-align: center;
+      margin: 0px 30px;
+      text-align: flex;
 
     }
    .links li a {
     text-align: left;
     display: table;
     padding: 1%;
-    margin: 10px 0px ;
+    margin: 0px 30px ;
     
    }
    
+   
+   
+  
+
+
+
     footer {
       text-align: left;
       padding: 5%;
@@ -223,5 +229,5 @@
     footer .row a i {
       margin: 0% 3%;
     }
-  }
   
+  }
