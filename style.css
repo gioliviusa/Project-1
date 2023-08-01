@@ -5,6 +5,7 @@
 
 }
 
+
 /* Start Landing Page */
 .landing-page {
   background-color: #000000;
@@ -199,7 +200,7 @@
   @media (max-width: 720px) {
      .landing-page .header-area  .links   { 
       display: table;
-      margin: 0px 30px;
+      /* margin: 0px 30px; */
       text-align: flex;
 
     }
