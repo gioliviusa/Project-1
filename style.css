@@ -168,7 +168,7 @@ body{
   margin: 0;
   line-height: 1.6;
   font-size: 15px;
-  color: #5d5d5d;
+  color: #ffffff;
 }
 
 .info {
@@ -199,8 +199,13 @@ body{
   text-decoration: none;
 }
 
-.landing-page .image img {
-  max-width: 50%;
+.landing-page .image img {width: 360px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  
+
+  /* max-width: 50%; */
   border-radius: 10px;
 }
 
