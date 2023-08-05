@@ -51,11 +51,20 @@ body{
   align-items: flex-end;
   margin-bottom: 20px;
   font-family: "play" , sans-serif;
-  background-color: rgb(39, 39, 39);
+  background-color: rgb(37, 37, 37);
   text-align: right;
   border-radius: 10px;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.4px);
+ -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.header-area .logo {
+  display: flex;
+
+}
 
  
 
@@ -102,7 +111,7 @@ body{
 }
 
 
-.main{
+.main {
   /* margin: 0; */
   /* height: 0; */
   display: flex;
@@ -117,8 +126,17 @@ body{
 .image{
   width: 50%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  justify-content: center;
  
 
+}
+
+.image{
+  align-items:center;
+  width: 50%;
 }
 
 
@@ -178,11 +196,16 @@ body{
 
 
   footer {
-  background:black ;
+  background:rgb(25, 25, 25) ;
   padding: 30px 0px;
   font-family: "Play", sans-serif;
   text-align: center;
   border-radius: 10px;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.4px);
+ -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
   
 footer .row {
@@ -268,6 +291,23 @@ footer .row a i {
 
   
 }   
+
+
+
+.header-area .logo {
+  display: flex;
+  justify-content: center;
+  align-self:center;
+  
+}
+
+
+
+
+
+
+
+
 
     
 
