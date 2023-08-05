@@ -122,21 +122,22 @@ body{
 
 
 }
-.info,
-.image{
+.main .info {
   width: 50%;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   margin: 5%;
   justify-content: center;
+  padding: 30px;
  
 
 }
 
-.image{
+.main .image {
   align-items:center;
-  width: 50%;
+  width: 600px;
+  height: auto;
 }
 
 
@@ -302,7 +303,16 @@ footer .row a i {
 }
 
 
-
+.landing-page {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  /* align-self:flex-end; */
+  
+  
+}
 
 
 
