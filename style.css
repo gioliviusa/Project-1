@@ -10,10 +10,17 @@ body {
 }
 
 body{
-  background-image: url('./images/IMG_6197.PNG') ;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; 
+
+  /* background-image: url('./images/IMG_6197.PNG') ; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat;  */
+  
+
+  background: linear-gradient(
+    -45deg, #ee7752, #e73c7e, #23d5ab, blue);
+  background-size:400% 400%;
+  animation: gradient 15s ease infinite;
   
     
 }
@@ -62,7 +69,7 @@ body{
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3.4px);
  -webkit-backdrop-filter: blur(3.4px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(238, 238, 238, 0.983);
 }
 
 .header-area .logo {
@@ -386,7 +393,7 @@ footer .row a i {
 }
 
 .info {
-  width: 640px;
+  width: 720px;
   height: auto;
   background-color: #000000;
   border-radius: 10px;
