@@ -160,19 +160,26 @@ body{
   font-size: 24px;
   margin: 0 0 15px;
   line-height: 1.4;
-  color: #5d5d5d;
- 
+  color: #45ecd1;
+
+  text-shadow: 0 4px 30px rgba(99, 131, 157, 0.586);
+  backdrop-filter: blur(3.4px);
+ -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.072);
+  opacity: 0.7;
+  /*  */
   
   margin: 0 0 15px;
   line-height: 1.4;
-  color: #5d5d5d;
+  /* color: #5d5d5d;
+} */
 }
 
 .landing-page .info p {
   margin: 0;
   line-height: 1.6;
   font-size: 15px;
-  color: #ffffff;
+  color: #fdfdfd;
 }
 
 .info {
