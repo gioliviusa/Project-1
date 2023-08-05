@@ -6,13 +6,7 @@
   
     
 }
-img{
-  /* background-image: url(/images/IMG_6197.PNG) ;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;  */
 
-}
 
 /* Start Landing Page */
 .landing-page {
@@ -27,11 +21,15 @@ img{
   min-height: calc(100% - (var(--navHeight)));
   margin: 0;
   padding: 0;
+
 }
 
  .container {
-  max-width: 85%;
+  width: 100%;
   height: auto;
+ 
+  
+  
 
 }
 
@@ -41,46 +39,32 @@ img{
 
 
 
-.landing-page .header-area {
+.header-area {
+  width: 100%;
+  height:fit-content;
   display:flex;
-  align-items: flex-end;
   justify-content: space-between;
+  align-items: flex-end;
   margin-bottom: 20px;
   font-family: "play" , sans-serif;
-  background-color: black;
-  text-align: center;
+  background-color: rgb(39, 39, 39);
+  text-align: right;
   border-radius: 10px;
 }
 
- .landing-page .header-area .logo  {
-  width: 60px;
-  height: 60px;
-  position: flex-start;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
-.landing-page .header-area .logo  {
-  width: 60px;
-  height: 60px;
-  
-} 
-.logo{
-  position:absolute;
-}
+ 
 
 .landing-page .header-area  .links {
-  list-style: none;
-  justify-content: space-evenly;
-  display: inline-flex;
   width: 100%;
-  margin: 1% 0%;
+  margin: 1% 5%;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
   padding: 0.6% 0%;
   color: gray;
   font-size: 0.8em;
-  display: flex;
+  /* display: flex; */
   
   
 }
@@ -93,6 +77,8 @@ img{
   padding: 0.6% 0%;
   color: gray;
   font-size: 0.8em;
+  display: flex;
+  justify-content: flex-end;
   
 
 }
@@ -227,37 +213,59 @@ footer .row a i {
   }
   
 @media (max-width: 720px) {
+
+  .header-area {
+    width: 100%;
+    height: 150px;
+    display: flex;
+
+  }
+
   .header-area .links a {
-    height: auto!important ;
+    height: 1vh ;
+    width: 100%;
     display: flex;
     /* flex-wrap: wrap; */
     justify-content:flex-end;
-    margin-right: 0px;
+    margin-right: 5px;
+    
   }
 
-  .landing-page .header-area  .links   { 
+  .landing-page
+   .header-area 
+    .links { 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  margin: 0px 0px;
+  align-items: flex-start;
+  
   
  
 
     }
+.header-area .logo img {
+  
+  width: 30%;
+  height: auto;
+  display: flex;
+  
+  
+  
+  
+  
 
-.logo {
-  position:absolute;
-  display:flex;
+
+
   
 }   
+
     
 
 .links li a {
   text-align: right;
   display: table;
   padding: 0.5%;
-  margin: 0px 30px ;
+  margin: 1px 30px ;
     
    }
    
