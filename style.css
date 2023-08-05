@@ -171,6 +171,19 @@ body{
   color: #5d5d5d;
 }
 
+.info {
+  width:auto;
+  background-color: #000000;
+  border-radius: 10px;
+  opacity: .8;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.4px);
+ -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+
+}
+
 .landing-page .info button {
   border: 0;
   border-radius: 20px;
@@ -314,9 +327,41 @@ footer .row a i {
   
 }
 
+.main {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
+  
+  
+  
+}
+
+.image {
+  max-width:32rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  opacity: .7;
+  
+
+}
+
+.info {
+  width:auto;
+  background-color: #000000;
+  border-radius: 10px;
+  opacity: .8;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.4px);
+ -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 
 
-
+}
 
 
     
