@@ -227,10 +227,21 @@ footer .row a i {
   }
   
 @media (max-width: 720px) {
-.landing-page .header-area  .links   { 
-  display: table;
-  margin: 0px 30px;
-  text-align: flex;
+  .header-area .links a {
+    height: auto!important ;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content:flex-end;
+    margin-right: 0px;
+  }
+
+  .landing-page .header-area  .links   { 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0px 0px;
+  
  
 
     }
