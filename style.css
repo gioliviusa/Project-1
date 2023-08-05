@@ -6,7 +6,13 @@
   
     
 }
+img{
+  /* background-image: url(/images/IMG_6197.PNG) ;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;  */
 
+}
 
 /* Start Landing Page */
 .landing-page {
@@ -18,12 +24,16 @@
   background-position: center;
   background-repeat: no-repeat; 
   display: flex;
-
+  min-height: calc(100% - (var(--navHeight)));
+  margin: 0;
+  padding: 0;
 }
 
-/* .container {
-  /* max-width: 1170px;
-  margin: auto; */
+ .container {
+  max-width: 85%;
+  height: auto;
+
+}
 
  
 
