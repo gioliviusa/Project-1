@@ -13,12 +13,12 @@
   /* background-color: #000000;
   /* text-align: center; 
   padding: 20px; */
-  background-image: url('../images/IMG_6197.PNG') ;
+  background-image: url('./images/IMG_6197.PNG') ;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; 
   display: flex;
-  min-height: calc(100% - (var(--navHeight)));
+  /* min-height: calc(100% - (var(--navHeight))); */
   margin: 0;
   padding: 0;
 
