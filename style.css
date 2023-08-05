@@ -178,7 +178,8 @@
   padding: 30px 0px;
   font-family: "Play", sans-serif;
   text-align: center;
-  }
+  border-radius: 10px;
+}
   
 footer .row {
   width: 100%;
