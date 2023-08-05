@@ -311,7 +311,7 @@ footer .row a i {
     }
 .header-area .logo img {
   
-  width: 30%;
+  width: 39%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -363,7 +363,7 @@ footer .row a i {
 }
 
 .image {
-  max-width:32rem;
+  width:inherit;
   position: relative;
   display: flex;
   justify-content: center;
@@ -374,7 +374,8 @@ footer .row a i {
 }
 
 .info {
-  width:auto;
+  width: 640px;
+  height: auto;
   background-color: #000000;
   border-radius: 10px;
   opacity: .8;
