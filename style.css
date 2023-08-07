@@ -195,11 +195,11 @@ body{
 
 
   footer {
-  background:rgb(25, 25, 25) ;
+  background:rgb(0, 0, 0) ;
   padding: 30px 0px;
   font-family: "Play", sans-serif;
   text-align: center;
-  border-radius: 10px;
+ 
 
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3.4px);
@@ -211,7 +211,7 @@ footer .row {
   width: 100%;
   margin: 1% 0%;
   padding: 0.6% 0%;
-  color: gray;
+  color: rgb(61, 61, 61);
   font-size: 0.8em;
   
   }
@@ -257,11 +257,14 @@ footer .row a i {
     bottom:90px; 
     left: 0;
     width: 100%;
-    background-color: #787878;
+    background-color: #904c4c;
+    bottom: 0;
+
   }
 
   .navbar-links.active {
     display: flex;
+    height: 100vh;
     
   }
 
@@ -285,10 +288,11 @@ footer .row a i {
 
 
 .image {
-  width:inherit;
-  position: relative;
+  width:90%;
+  position:inherit;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 4px;
   opacity: .7;
   
@@ -296,7 +300,7 @@ footer .row a i {
 }
 
 .info {
-  width: 720px;
+  width: 80%;
   height: auto;
   background-color: #000000;
   border-radius: 10px;
@@ -306,9 +310,17 @@ footer .row a i {
  -webkit-backdrop-filter: blur(3.4px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 
-
 }
 
+
+.info {
+  display: flex;
+  width:auto;
+  height: auto;
+  flex-direction: column;
+  justify-self: center;
+  align-content: center;
+}
 
     
 
@@ -317,7 +329,7 @@ footer .row a i {
   display: table;
   padding: 0.5%;
   margin: 1px 1px ;
-    
+ 
    }
    
    
@@ -332,7 +344,7 @@ footer {
 
 
   opacity: .8;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.195);
   backdrop-filter: blur(3.4px);
  -webkit-backdrop-filter: blur(3.4px);
   border: 1px solid rgba(255, 255, 255, 0.05);
