@@ -103,8 +103,11 @@ body{
 }
 
 .image {
+  display: flex;
+  justify-content: center;
+  margin: 50px 40px;
   align-items:center;
-  width: 600px;
+  width: 90%;
   height: auto;
 }
 
@@ -289,10 +292,10 @@ footer .row a i {
 
 .image {
   width:90%;
-  position:inherit;
+  
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   padding: 4px;
   opacity: .7;
   
@@ -353,6 +356,7 @@ footer {
 footer .row ul li {
   display: block;
   margin: 10px 0px;
+  
     
   }
 footer .row a i {
