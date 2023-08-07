@@ -33,8 +33,12 @@ body{
   padding: 10px;
 }
 
-.navbar-logo {
-  font-size: 20px;
+.navbar-logo  {
+  width: auto;
+  height: auto;
+  
+  background-image: url(../images/Ian\ \(3\)\ \(2\).png);
+  
 }
 
 .navbar-links {
@@ -284,16 +288,36 @@ footer .row a i {
 
   }
   
-   .navbar-logo {
-    width: 20px;
+   .navbar-logo img {
+    /* width: 2px;
     height: auto;
     padding: 10px 10px;
-    display: flex;
-    justify-content: flex;
-    align-self:flex-start ;
-    color: #23d5ab;
     
-  } 
+    justify-content: flex;
+    align-self:flex-start ; */
+
+    height: 55px;
+    width: auto;
+    display: flex;
+    
+}
+
+.navbar-logo {
+  padding: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+
+
+}
+    
+    
+
+
+
+
+
+   
 
   .navbar-toggle {
     width: 20px;
