@@ -255,11 +255,11 @@ footer .row a i {
 
 
 
-   .navbar {
+   /* .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-   }
+   } */
  
 
   .navbar-links {
@@ -322,8 +322,8 @@ footer .row a i {
     flex-direction: column;
     justify-items:center;
     
-    align-self:flex-start;
-    
+    /* align-self:flex-start;
+     */
     
 
 
