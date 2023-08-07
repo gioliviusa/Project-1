@@ -11,12 +11,6 @@ body {
 
 body{
 
-  /* background-image: url('./images/IMG_6197.PNG') ; */
-  /* background-size: cover; */
-  /* background-position: center; */
-  /* background-repeat: no-repeat;  */
-  
-
   background: linear-gradient(
     -45deg, #ee7752, #e73c7e, #23d5ab, blue);
   background-size:400% 400%;
@@ -281,24 +275,47 @@ footer .row a i {
     /* height: 100vh;
     width: 100%; */
     display: flex;
-     position:sticky;
-     justify-content: right;
+    position:sticky;
+    justify-content: right;
      /* align-items: flex-start; */
      /*align-items: flex-end;  */
+     align-content: start;
     
 
   }
   
-  /* .navbar-logo {
+   .navbar-logo {
     width: 20px;
     height: auto;
     padding: 10px 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex;
     align-self:flex-start ;
     color: #23d5ab;
     
-  } */
+  } 
+
+  .navbar-toggle {
+    width: 20px;
+    height: auto;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: flex;
+    align-self:flex-start ;
+    
+    
+  } 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,6 +323,7 @@ footer .row a i {
   .navbar-links li {
     margin-left: 0;
     padding: 10px;
+  
     text-align: right;
   }
 
@@ -315,15 +333,15 @@ footer .row a i {
   }
 
   .navbar-toggle {
-    /* width: 20px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-items:center; */
     display: block;
+    /* width: 20px;
+    /* height: auto; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-items:center; */ 
     
-    /* align-self:flex-start;
-     */
+    /* align-self:flex-start; */
+     
     
 
 
@@ -334,7 +352,8 @@ footer .row a i {
 
 
 .image {
-  width:90%;
+  width:80%;
+  height: auto;
   
   display: flex;
   justify-content: center;
