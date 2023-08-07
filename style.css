@@ -132,7 +132,7 @@ body{
   text-shadow: 0 4px 30px rgba(99, 131, 157, 0.586);
   backdrop-filter: blur(3.4px);
  -webkit-backdrop-filter: blur(3.4px);
-  border: 1px solid rgba(255, 255, 255, 0.072);
+  
   opacity: 0.7;
   /*  */
   
@@ -180,6 +180,8 @@ body{
   animation: gradient 15s ease infinite;
   
   
+  
+  
 }
 
 .image img {width: 360px;
@@ -204,7 +206,7 @@ body{
   text-align: center;
  
 
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.024);
   backdrop-filter: blur(3.4px);
  -webkit-backdrop-filter: blur(3.4px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -214,7 +216,7 @@ footer .row {
   width: 100%;
   margin: 1% 0%;
   padding: 0.6% 0%;
-  color: rgb(61, 61, 61);
+  color: rgb(255, 255, 255);
   font-size: 0.8em;
   
   }
@@ -251,25 +253,56 @@ footer .row a i {
   
 @media (max-width: 720px) {
 
+
+
+   .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+ 
+
   .navbar-links {
     display: none;
     flex-direction: column;
     position: absolute;
     height:100vh;
-    top: 60px; 
-    bottom:90px; 
+    top: 0; 
+    bottom: 0;
+     
     left: 0;
     width: 100%;
-    background-color: #904c4c;
-    bottom: 0;
+    background-color: #000000;
+    justify-content: space-between;
+    
 
   }
 
   .navbar-links.active {
-    display: flex;
     height: 100vh;
+    width: 100%;
+    display: flex;
+    position:sticky;
+    justify-content: right;
+    align-items: flex-end;
+    
+    
+
+  }
+  
+  .navbar-logo {
+    width: 20px;
+    height: auto;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-self:flex-start ;
+    color: #23d5ab;
     
   }
+
+
+
 
   .navbar-links li {
     margin-left: 0;
@@ -283,7 +316,17 @@ footer .row a i {
   }
 
   .navbar-toggle {
-    display: block;
+    width: 20px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-items:center;
+    
+    align-self:flex-start;
+    
+    
+
+
   }
 
 
