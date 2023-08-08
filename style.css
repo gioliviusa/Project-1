@@ -31,14 +31,19 @@ body{
   background-color: #000000;
   color: #f0f0f0;
   padding: 10px;
+  height: auto;
 }
 
 .navbar-logo  {
-  width: auto;
-  height: auto;
+ 
   
   background-image: url(../images/Ian\ \(3\)\ \(2\).png);
   
+}
+
+.navbar-logo img {
+  height: 50px;
+  width: auto;
 }
 
 .navbar-links {
