@@ -2,126 +2,598 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Restaurant Menu</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
-    </style>
-    
-    <title>IAN Finance</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="MobileStyleSheet.css" rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px) , only screen and (-webkit-min-device-pixel-ratio: 2) , screen and (-webkit-device-pixel-ratio: 1.5)"/>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
 
-    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-title {
+            color: #333;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .item-price {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .item-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .item-variation {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .tabs {
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            background: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .tab-button.active {
+            background: #c0392b;
+        }
+
+        #qrcode {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .allergy-key {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .allergy-icon {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #ffebee;
+            font-size: 0.9em;
+        }
+
+        .menu-section h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+            text-transform: uppercase;
+        }
+
+        .gluten-free {
+            border: 2px solid #2ecc71;
+        }
+
+        .gluten-free::after {
+            content: "GF";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #2ecc71;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.8em;
+        }
+
+        .allergens {
+            margin: 10px 0;
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+
+        .section-title {
+            text-transform: uppercase;
+            font-size: 1.5em;
+            color: #333;
+            margin: 30px 0 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .warning-note {
+            font-style: italic;
+            color: #777;
+            margin-top: 20px;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .restaurant-info {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="showMenu('food')">Food Menu</button>
+            <button class="tab-button" onclick="showMenu('drinks')">Drink Menu</button>
+        </div>
 
-  <header>
-    <nav class="navbar">
-      <div class="navbar-logo"> <img src="./images/Ian (3) (2).png" alt="" srcset=""> </div>
-      <div class="navbar-toggle" id="toggle-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul class="navbar-links" id="menu-links">
-        <li><a href="https://linktr.ee/iantoken?fbclid=PAAaZ-_Y043v22DiHeQ7qrxWaLgUSwTh9IPmlGBoZYT8t_Pkp9myxzuxX5L3I" data-scroll>LinkTree</a></li>
-        <li><a href="https://coinmarketcap.com/dexscan/bsc/0xe10070eccf5b654a447f5b55fa6839256aa0a73d/0x3a6efe9bb33376df1ef221461bda62c8ef46d1fd/" data-scroll>CoinMarketCap</a></li>
-        <li><a href="https://bscscan.com/address/0xe10070ECCf5b654a447f5B55FA6839256AA0a73D" data-scroll>Liquidity</a></li>
-        <li><a href="https://docs.google.com/document/d/e/2PACX-1vRUgpH5HKI18ewBcv04IGoaHCXl9rcgJW_OT042udDoL6sDusvEMZlS1vYhdlyOB9qfRhfpK9VrZlnS/pub" data-scroll>WhitePaper</a></li>
-        <li><a href="https://pancakeswap.finance/swap?outputCurrency=0x07d5bf841beb877c9bE550B79cb0d49e4e091Dec" data-scroll>Connect</a></li>
-        
-
-
-
-      </ul>
-    </nav>
-
-
-  </header>
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-    
-
-    
-      <div class="info">
-      <h1>"AI-Powered Speed, Security, and Finance Solutions"</h1>
-      <p>Step into the future of finance with our cutting-edge Smart Contract Finance Tool. Experience a seamless blend of technology and innovation, redefining the way you manage your financial transactions. 
-        
-       <br><br>        
-      Say goodbye to tedious paperwork and hello to effortless automation, as our platform empowers you to create, execute, and enforce smart contracts with unrivaled ease. Whether you're a seasoned investor or a budding entrepreneur, our solution caters to all, empowering you to navigate the complex financial landscape with confidence. Embrace the limitless potential of decentralized finance, and witness firsthand how our tool reshapes the very essence of financial interactions. <br><br>Join us on this exhilarating journey to unlock boundless opportunities and redefine the future of finance together. The revolution is here, and it starts with you!</p>
-      <a href="https://pancakeswap.finance/swap?outputCurrency=0x07d5bf841beb877c9bE550B79cb0d49e4e091Dec"><button>Star</button></a>
-      </div>
-      <div class="image">
-      <img src="./Photos-001/IMG_6500.GIF">
-      </div>
-  
-    
-  
-       
-
-
+        <div id="food" class="menu-section">
+            <h2 class="menu-title">Food Menu</h2>
             
+            <div class="section-title">Antipasti</div>
+            <div class="menu-grid" id="antipasti"></div>
 
+            <div class="section-title">Insalate</div>
+            <div class="menu-grid" id="insalate"></div>
 
-    <footer>
-          
-        
+            <div class="section-title">Pizza</div>
+            <div class="menu-grid" id="pizza"></div>
 
-            <div class="row">
-                <a href="https://t.me/+zgyWeoB6cBYxZmRh"><i class="fa fa-telegram"></i></a>
-                <a href="https://www.instagram.com/dataiantoken"><i class="fa fa-instagram"></i></a>
-                <a href="https://pancakeswap.finance/swap?outputCurrency=0x07d5bf841beb877c9bE550B79cb0d49e4e091Dec"><i class="fa fa-bank"></i></a>
-                <a href="https://twitter.com/dataiantoken"><i class="fa fa-twitter"></i></a>
-                <a href="https://github.com/gioliviusa/Project-1"><i class="fa fa-github"></i></a>
-                <a href="https://docs.google.com/document/d/e/2PACX-1vRUgpH5HKI18ewBcv04IGoaHCXl9rcgJW_OT042udDoL6sDusvEMZlS1vYhdlyOB9qfRhfpK9VrZlnS/pub"><i class="fa fa-paper-plane"></i></a>
-                
-                
-                <div class="row">
-                <ul>
-                <li><a href="https://docs.google.com/document/d/e/2PACX-1vRUgpH5HKI18ewBcv04IGoaHCXl9rcgJW_OT042udDoL6sDusvEMZlS1vYhdlyOB9qfRhfpK9VrZlnS/pub">WhitePaper</a></li>
-                <li><a href="#">Our Services</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
-                <li><a href="#">Career</a></li>
-                </ul>
-                </div>
-                <div class="row">
-                    IAN © 2023  - All rights reserved || Designed with &#10084; By: GioLiv <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
-                        <path fill="none" d="M0 0h24v24H0z" />
-                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-6v2h2v-2h1a2.5 2.5 0 0 0 2-4 2.5 2.5 0 0 0-2-4h-1V6h-2v2H8v8h3zm-1-3h4a.5.5 0 1 1 0 1h-4v-1zm0-3h4a.5.5 0 1 1 0 1h-4v-1z" />
-                      </svg></div>
-                    
-        
-    </footer>
+            <div class="section-title">Carne</div>
+            <div class="menu-grid" id="meat"></div>
 
+            <div class="section-title">Dal Mare</div>
+            <div class="menu-grid" id="seafood"></div>
+
+            <div class="section-title">Pasta</div>
+            <div class="menu-grid" id="pasta"></div>
+
+            <div class="section-title">Sides</div>
+            <div class="menu-grid" id="sides"></div>
+
+            <div class="warning-note">
+                *The Florida Department of Health advises that consuming raw or undercooked seafood or shellfish may increase your risk of food borne illness.
+            </div>
+
+            <div class="restaurant-info">
+                <p>551 N Fort Lauderdale Beach Blvd<br>
+                954.414.5127<br>
+                Guest Wifi: AnthonyS51<br>
+                vitoloitaliano<br>
+                Lauderdale, FL 33104</p>
+            </div>
+
+            <div class="allergy-key">
+                <strong>Allergy Key:</strong><br>
+                <span class="allergy-icon">(D) Dairy</span>
+                <span class="allergy-icon">(G) Gluten</span>
+                <span class="allergy-icon">(E) Eggs</span>
+                <span class="allergy-icon">(F) Fish/Shellfish</span>
+                <span class="allergy-icon">(S) Soy</span>
+            </div>
+        </div>
+
+        <div id="drinks" class="menu-section" style="display: none;">
+            <h2 class="menu-title">Drink Menu</h2>
+            <div class="menu-grid" id="drink-items"></div>
+        </div>
+
+        <div id="qrcode"></div>
     </div>
-    <script src="scripts.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // Food Menu Data
+        const foodMenu = [
+            // Antipasti
+            {
+                name: "ANTIPASTO DELLA CASA for 2", 
+                price: "$38", 
+                desc: "Assorted premium cheeses (+$19pp), olives & Italian cured meats", 
+                category: "antipasti", 
+                allergens: ["D"]
+            },
+            {
+                name: "VONGOLE OREGANATA", 
+                price: "$28", 
+                desc: "Baked mid neck clams, homemade breadcrumbs & lemon sauce", 
+                category: "antipasti", 
+                allergens: ["D", "F", "G", "S"]
+            },
+            {
+                name: "ZUCCHINE FRITTI", 
+                price: "$19", 
+                desc: "Seasoned, thinly sliced zucchini, lightly floured, served alongside marinara sauce", 
+                category: "antipasti", 
+                allergens: ["E", "G"]
+            },
+            {
+                name: "BURRATA", 
+                price: "$30", 
+                desc: "Roasted red peppers, san daniele prosciutto, balsamic reduction & fresh basil", 
+                category: "antipasti", 
+                allergens: ["D"]
+            },
+            {
+                name: "MOZZARELLA EN CARROZZA", 
+                price: "$22", 
+                desc: "Breaded crispy mozzarella served alongside marinara sauce", 
+                category: "antipasti", 
+                allergens: ["D", "E", "G", "S"]
+            },
+            {
+                name: "POLPETTE", 
+                price: "$18", 
+                desc: "A blend of ground beef, pork meatballs with pomodoro sauce", 
+                category: "antipasti", 
+                allergens: ["D", "E", "G"],
+                addOn: "Add on: Truffle ricotta $5 (D,S)"
+            },
+            {
+                name: "POLPO", 
+                price: "$30", 
+                desc: "Grilled octopus, arugula, fennel, tomatoes & mustard vinaigrette", 
+                category: "antipasti", 
+                allergens: ["F"]
+            },
+            {
+                name: "CALAMARI FRITTI", 
+                price: "$25", 
+                desc: "Topped with sweet & spicy vinegar peppers alongside marinara sauce", 
+                category: "antipasti", 
+                allergens: ["D", "F", "G"]
+            },
+            
+            // Insalate
+            {
+                name: "MISTA", 
+                price: "$16", 
+                desc: "Mixed house salad with extra virgin olive oil & vinegar", 
+                category: "insalate", 
+                allergens: []
+            },
+            {
+                name: "RUCOLA", 
+                price: "$17", 
+                desc: "Arugula, sliced fennel & orange segments with shaved Pecorino Romano cheese", 
+                category: "insalate", 
+                allergens: ["D"]
+            },
+            {
+                name: "CAESAR *", 
+                price: "$18", 
+                desc: "Crispy romaine lettuce with our house made Caesar dressing served with crispy croutons", 
+                category: "insalate", 
+                allergens: ["D", "E", "F", "G", "S"]
+            },
+            
+            // Pizza
+            {
+                name: "QUEEN MARGHERITA", 
+                price: "$24", 
+                desc: "San Marzano Pomodoro, mozzarella & fresh basil, drizzled with extra virgin olive oil", 
+                category: "pizza", 
+                allergens: ["D", "G"]
+            },
+            {
+                name: "TONY PEPPERONI", 
+                price: "$28", 
+                desc: "San Marzano Pomodoro, Ezzo pepperoni cups, mozzarella & fresh basil", 
+                category: "pizza", 
+                allergens: ["D", "G"]
+            },
+            {
+                name: "BIANCA", 
+                price: "$29", 
+                desc: "Baby Arugula, fresh basil & mixed greens, mozzarella, Parmesan reggiano, truffle ricotta, sauteed garlic, roasted cherry tomatoes & lemon zest", 
+                category: "pizza", 
+                allergens: ["D", "G"],
+                addOn: "+Vegan Cheese substitute available $6"
+            },
+            
+            // Meat Section
+            {
+                name: "POLLO AL PARMIGIANA OR MILANESE", 
+                price: "$42", 
+                desc: "Breaded chicken topped with marinara sauce & fresh Buffalo mozzarella or breaded chicken with arugula tomato", 
+                category: "meat", 
+                allergens: ["D", "E", "G"]
+            },
+            {
+                name: "COSTOLETTA D'AGNELLO AL ROSMARINO", 
+                price: "$68", 
+                desc: "New Zealand Rack of Lamb served with rosmarino sauce", 
+                category: "meat", 
+                allergens: ["D"]
+            },
+            {
+                name: "PORKCHOP VINEGAR PEPPERS", 
+                price: "$46", 
+                desc: "Pork chop served with sweet vinegar & hot cherry peppers", 
+                category: "meat", 
+                allergens: ["D", "G"]
+            },
+            {
+                name: "VITELLO ANTONIO", 
+                price: "$92", 
+                desc: "Center cut veal chop for two, pounded thin, Panko crusted with sweet peas, crispy prosciutto, marinara cream sauce & fresh mozzarella", 
+                category: "meat", 
+                allergens: ["D", "E", "G"]
+            },
+            {
+                name: "POLLO AL LIMONE", 
+                price: "$38", 
+                desc: "Lightly floured chicken breast in a white wine lemon sauce", 
+                category: "meat", 
+                allergens: ["D", "E", "G"]
+            },
+            
+            // Seafood Section
+            {
+                name: "LOBSTER RAVIOLI", 
+                price: "$42", 
+                desc: "Lobster filled ravioli served over lobster cream sauce & shrimp", 
+                category: "seafood", 
+                allergens: ["D", "E", "F", "G"]
+            },
+            {
+                name: "LOBSTER FRA DIAVOLO", 
+                price: "$58", 
+                desc: "Main lobster in spicy pomodoro with calabrian chiles sauce with linguini", 
+                category: "seafood", 
+                allergens: ["G", "F"]
+            },
+            {
+                name: "STRIPE BASS AL FORNO", 
+                price: "$44", 
+                desc: "Blistered baby heirloom tomatoes, extra virgin olive oil, shallots, white wine, lemon parsley", 
+                category: "seafood", 
+                allergens: []
+            },
+            {
+                name: "GAMBERI SCAMPI", 
+                price: "$38", 
+                desc: "Shrimp sautéed in garlic, white wine lemon sauce topped with toasted breadcrumbs with linguini", 
+                category: "seafood", 
+                allergens: ["D", "G", "F", "S"]
+            },
+            {
+                name: "PESCE DEL GIORNO", 
+                price: "Market Price", 
+                desc: "Premier hand selected fish each week by Chef Anthony", 
+                category: "seafood", 
+                allergens: []
+            },
+            
+            // Pasta Section
+            {
+                name: "SPAGHETTI AL POMODORO", 
+                price: "$28", 
+                desc: "San Marzano Tomatoes & basil", 
+                category: "pasta", 
+                allergens: ["G"]
+            },
+            {
+                name: "TAGLIATELLE ALLA BOLOGNESE", 
+                price: "$36", 
+                desc: "Homemade tagliatelle pasta with beef, pork, & veal ragu", 
+                category: "pasta", 
+                allergens: ["D", "G"]
+            },
+            {
+                name: "LINGUINE ALLE VONGOLE", 
+                price: "$38", 
+                desc: "Linguini with fresh mid neck clams, olive oil, & garlic", 
+                category: "pasta", 
+                allergens: ["F", "G"]
+            },
+            {
+                name: "SPICY PACCHERI ALLA VODKA", 
+                price: "$34", 
+                desc: "Homemade paccheri pasta served with spicy vodka sauce", 
+                category: "pasta", 
+                allergens: ["D", "G"]
+            },
+            {
+                name: "SPAGHETTI ALLA CARBONARA", 
+                price: "$33", 
+                desc: "Guanciale, egg, Pecorino Romano & Parmigiano Reggiano cheese & black pepper", 
+                category: "pasta", 
+                allergens: ["D", "E", "G"]
+            },
+            {
+                name: "GNOCCHI", 
+                price: "$28", 
+                desc: "Gluten free gnocci with choice of sauce", 
+                category: "pasta", 
+                allergens: [],
+                glutenFree: true
+            },
+            
+            // Sides
+            {
+                name: "BROCCOLIRABE", 
+                price: "$16", 
+                desc: "Sauteed garlic with extra virgin olive oil", 
+                category: "sides", 
+                allergens: []
+            },
+            {
+                name: "MUSHROOMS", 
+                price: "$16", 
+                desc: "Chef's mix mushrooms sauteed with shallots, pancetta & sweet peas", 
+                category: "sides", 
+                allergens: ["D"]
+            },
+            {
+                name: "ROSEMARY POTATOES", 
+                price: "$14", 
+                desc: "Crispy roasted potatoes with fresh rosemary", 
+                category: "sides", 
+                allergens: ["D"]
+            }
+        ];
+
+        // Drink Menu Data
+        const drinkMenu = [
+            {name: "Classic Mojito", price: "$8", desc: "Fresh mint and lime cocktail"},
+            {name: "Aperol Spritz", price: "$9", desc: "Italian prosecco cocktail"},
+            {name: "Old Fashioned", price: "$10", desc: "Whiskey classic with bitters"},
+            {name: "Margarita", price: "$9", desc: "Tequila with lime and salt"},
+            {name: "Craft Beer", price: "$6", desc: "Local brewery selection"},
+            {name: "House Wine", price: "$7", desc: "Red or white wine selection"},
+            {name: "Iced Coffee", price: "$4", desc: "Cold brew with milk"},
+            {name: "Fresh Lemonade", price: "$3", desc: "Homemade lemon beverage"},
+            {name: "Mango Smoothie", price: "$5", desc: "Fresh mango and yogurt"},
+            {name: "Green Tea", price: "$2", desc: "Japanese sencha tea"},
+            {name: "Espresso", price: "$3", desc: "Italian style coffee"},
+            {name: "Virgin Colada", price: "$6", desc: "Pineapple and coconut mix"},
+            {name: "Hot Chocolate", price: "$4", desc: "Rich cocoa with whipped cream"},
+            {name: "Soda", price: "$2", desc: "Coke, Sprite, Fanta"},
+            {name: "Mineral Water", price: "$1", desc: "Still or sparkling"},
+            {name: "Fresh Juice", price: "$4", desc: "Daily seasonal selection"}
+        ];
+
+        // QR Code Generator
+        new QRCode(document.getElementById("qrcode"), {
+            text: window.location.href,
+            width: 100,
+            height: 100
+        });
+
+        // Menu Navigation
+        function showMenu(menuType) {
+            document.querySelectorAll('.menu-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(menuType).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        // Food Menu Generator
+        function populateFoodMenu() {
+            const categories = {
+                antipasti: foodMenu.filter(item => item.category === 'antipasti'),
+                insalate: foodMenu.filter(item => item.category === 'insalate'),
+                pizza: foodMenu.filter(item => item.category === 'pizza'),
+                meat: foodMenu.filter(item => item.category === 'meat'),
+                seafood: foodMenu.filter(item => item.category === 'seafood'),
+                pasta: foodMenu.filter(item => item.category === 'pasta'),
+                sides: foodMenu.filter(item => item.category === 'sides')
+            };
+
+            for (const [category, items] of Object.entries(categories)) {
+                const container = document.getElementById(category);
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = `menu-item ${item.glutenFree ? 'gluten-free' : ''}`;
+                    
+                    const allergenIcons = {
+                        "D": "(D) Dairy",
+                        "G": "(G) Gluten",
+                        "E": "(E) Eggs",
+                        "F": "(F) Fish/Shellfish",
+                        "S": "(S) Soy"
+                    };
+
+                    const allergens = item.allergens.map(a => allergenIcons[a]).join(', ');
+
+                    div.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-description">${item.desc}</div>
+                        ${item.addOn ? `<div class="item-variation">${item.addOn}</div>` : ''}
+                        ${allergens ? `<div class="allergens">${allergens}</div>` : ''}
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+
+        // Drink Menu Generator
+        function populateDrinkMenu() {
+            const container = document.getElementById('drink-items');
+            drinkMenu.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-description">${item.desc}</div>
+                    <div class="item-price">${item.price}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize Menus
+        window.onload = () => {
+            populateFoodMenu();
+            populateDrinkMenu();
+        };
+    </script>
 </body>
 </html>
