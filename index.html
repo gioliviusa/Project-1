@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Supplier List - BSC Payment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+      color: white;
+      border-radius: 10px;
+    }
+    .payment-section {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .payment-box {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .crypto-info, .verification-form {
+      flex: 1;
+    }
+    .address-box {
+      display: flex;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    #wallet-address {
+      flex: 1;
+      word-break: break-all;
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
+    #copy-btn {
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #copy-btn:hover {
+      background: #5a6268;
+    }
+    .qr-code {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .qr-code img {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #eee;
+    }
+    .verification-form {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    #tx-hash {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    #verify-btn {
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #verify-btn:hover {
+      background: #218838;
+    }
+    .status-message {
+      margin-top: 15px;
+      min-height: 20px;
+      text-align: center;
+    }
+    .verified-badge {
+      background: #28a745;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    #supplier-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .supplier-category {
+      margin-bottom: 30px;
+    }
+    .supplier-category h3 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 8px;
+      color: #4e4376;
+    }
+    #export-btn {
+      background: #17a2b8;
+      margin-top: 20px;
+    }
+    #export-btn:hover {
+      background: #138496;
+    }
+    @media (max-width: 768px) {
+      .payment-box {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-boxes"></i> Premium Wholesale Suppliers</h1>
+    <p>Unlock our verified supplier database with crypto payment</p>
+  </header>
+
+  <div class="payment-section">
+    <h2><i class="fab fa-ethereum"></i> Pay with Crypto (BSC)</h2>
+    
+    <div class="payment-box" id="payment-box">
+      <div class="crypto-info">
+        <p>Send <strong>10 USDT</strong> (BEP-20) to this address:</p>
+        <div class="address-box">
+          <code id="wallet-address">0xb3393E20cbd27833b8CA89d735C0fED19b8AE981</code>
+          <button id="copy-btn"><i class="far fa-copy"></i> Copy</button>
+        </div>
+        <small>Binance Smart Chain (BSC) only - Do not send from exchanges</small>
+        
+        <div class="qr-code">
+          <!-- Base64 encoded placeholder QR - replace with your actual QR code -->
+          <img src="https://assets.codepen.io/8887848/IMG_2339.png" alt="<img src="https://assets.codepen.io/8887848/IMG_2339.png" <BSC Payment QR Code">
+        </div>
+      </div>
+
+      <div class="verification-form">
+        <h3><i class="fas fa-check-circle"></i> Payment Verification</h3>
+        <p>After sending payment, paste your transaction hash below:</p>
+        <input type="text" id="tx-hash" placeholder="0x...">
+        <button id="verify-btn"><i class="fas fa-lock-open"></i> Verify Payment</button>
+        <p class="status-message" id="status-message"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden until verification -->
+  <div id="supplier-content" style="display:none;">
+    <div class="verified-badge">
+      <i class="fas fa-check-circle"></i> Payment Verified
+    </div>
+    <h2><i class="fas fa-list-ul"></i> Premium Supplier List</h2>
+    <div id="supplier-links"></div>
+    <button id="export-btn"><i class="fas fa-file-csv"></i> Export to CSV</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Copy address functionality
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const address = document.getElementById('wallet-address').textContent;
+        navigator.clipboard.writeText(address).then(() => {
+          const btn = document.getElementById('copy-btn');
+          btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            btn.innerHTML = '<i class="far fa-copy"></i> Copy';
+          }, 2000);
+        });
+      });
+
+      // Verification handler
+      document.getElementById('verify-btn').addEventListener('click', () => {
+        const txHash = document.getElementById('tx-hash').value.trim();
+        const statusMessage = document.getElementById('status-message');
+        
+        if (!txHash || !txHash.startsWith('0x') || txHash.length < 64) {
+          statusMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid BSC transaction hash';
+          statusMessage.style.color = 'red';
+          return;
+        }
+
+        statusMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying transaction...';
+        statusMessage.style.color = 'inherit';
+        
+        // In a real implementation, you would check the blockchain here
+        // This is a simulation that always succeeds after 2 seconds
+        setTimeout(() => {
+          statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Payment confirmed! Unlocking content...';
+          statusMessage.style.color = 'green';
+          
+          setTimeout(() => {
+            document.getElementById('supplier-content').style.display = 'block';
+            document.getElementById('payment-box').style.display = 'none';
+            localStorage.setItem('paymentVerified', 'true');
+            renderSupplierLinks();
+          }, 1500);
+        }, 2000);
+      });
+
+      // Check if already verified
+      if (localStorage.getItem('paymentVerified') {
+        document.getElementById('supplier-content').style.display = 'block';
+        document.getElementById('payment-box').style.display = 'none';
+        renderSupplierLinks();
+      }
+
+      // Export button handler
+      document.getElementById('export-btn')?.addEventListener('click', () => {
+        exportSupplierData();
+      });
+    });
+
+    // Supplier data rendering
+    function renderSupplierLinks() {
+      const supplierData = [
+        {
+          category: "Health & Wellness",
+          products: [
+            {
+              name: "Ashwagandha Supplements",
+              suppliers: [
+                { name: "Alibaba", url: "https://www.alibaba.com/showroom/ashwagandha-supplier.html" },
+                { name: "BulkSupplements", url: "https://www.bulksupplements.com" }
+              ]
+            },
+            {
+              name: "Weighted Blankets",
+              suppliers: [
+                { name: "Gravity Blankets", url: "https://gravityblankets.com/wholesale" },
+                { name: "Alibaba OEM", url: "https://www.alibaba.com/showroom/weighted-blanket-manufacturer.html" }
+              ]
+            }
+          ]
+        },
+        {
+          category: "Eco-Friendly Products",
+          products: [
+            {
+              name: "Bamboo Kitchenware",
+              suppliers: [
+                { name: "Bamboo Manufacturers", url: "https://www.bamboowarehouse.com/wholesale" },
+                { name: "Alibaba Bamboo", url: "https://www.alibaba.com/showroom/bamboo-kitchenware.html" }
+              ]
+            }
+          ]
+        }
+      ];
+
+      const container = document.getElementById('supplier-links');
+      container.innerHTML = '';
+      
+      supplierData.forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'supplier-category';
+        categoryDiv.innerHTML = `<h3>${category.category}</h3>`;
+        
+        const productsList = document.createElement('ul');
+        productsList.style.listStyleType = 'none';
+        productsList.style.paddingLeft = '0';
+        
+        category.products.forEach(product => {
+          const productItem = document.createElement('li');
+          productItem.style.marginBottom = '15px';
+          productItem.innerHTML = `<strong>${product.name}</strong>`;
+          
+          const suppliersList = document.createElement('ul');
+          suppliersList.style.listStyleType = 'none';
+          suppliersList.style.paddingLeft = '20px';
+          suppliersList.style.marginTop = '5px';
+          
+          product.suppliers.forEach(supplier => {
+            const supplierItem = document.createElement('li');
+            supplierItem.style.marginBottom = '5px';
+            supplierItem.innerHTML = `<a href="${supplier.url}" target="_blank">${supplier.name}</a>`;
+            suppliersList.appendChild(supplierItem);
+          });
+          
+          productItem.appendChild(suppliersList);
+          productsList.appendChild(productItem);
+        });
+        
+        categoryDiv.appendChild(productsList);
+        container.appendChild(categoryDiv);
+      });
+    }
+
+    // Export to CSV
+    function exportSupplierData() {
+      const rows = [
+        ['Category', 'Product', 'Supplier Name', 'Supplier URL'],
+        ['Health & Wellness', 'Ashwagandha Supplements', 'Alibaba', 'https://www.alibaba.com/showroom/ashwagandha-supplier.html'],
+        ['Health & Wellness', 'Ashwagandha Supplements', 'BulkSupplements', 'https://www.bulksupplements.com'],
+        ['Health & Wellness', 'Weighted Blankets', 'Gravity Blankets', 'https://gravityblankets.com/wholesale'],
+        ['Health & Wellness', 'Weighted Blankets', 'Alibaba OEM', 'https://www.alibaba.com/showroom/weighted-blanket-manufacturer.html'],
+        ['Eco-Friendly Products', 'Bamboo Kitchenware', 'Bamboo Manufacturers', 'https://www.bamboowarehouse.com/wholesale'],
+        ['Eco-Friendly Products', 'Bamboo Kitchenware', 'Alibaba Bamboo', 'https://www.alibaba.com/showroom/bamboo-kitchenware.html']
+      ];
+      
+      let csvContent = rows.map(e => e.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'supplier_list.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
