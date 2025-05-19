@@ -169,6 +169,37 @@
             background: #FF1A4F;
         }
 
+        .story-image-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .story-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .story-controls button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: background 0.2s;
+        }
+
+        .story-controls button:hover {
+            background: #FF1A4F;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -200,7 +231,13 @@
 
     <section class="collection-grid" id="collection">
         <div class="product-card">
-            <img src="images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card.jpg" alt="Labubu THE MONSTERS Let's Checkmate Series" class="product-card__image">
+            <div class="story-image-wrapper">
+                <img id="story-image" src="images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card.jpg" alt="Labubu THE MONSTERS Let's Checkmate Series" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
             <div class="product-card__info">
                 <h3>Labubu THE MONSTERS Let's Checkmate Series</h3>
                 <p>Vinyl Plush Hanging Card</p>
@@ -270,6 +307,32 @@
             alert(`Thank you ${entries.name}! Good luck!`);
             e.target.reset();
         });
+
+        // Story/Instagram-like image shuffle for first product card
+        const storyImages = [
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card.jpg",
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card2.jpg",
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card3.jpg"
+        ];
+        let currentStory = Math.floor(Math.random() * storyImages.length);
+        const storyImgEl = document.getElementById('story-image');
+        function showStory(idx) {
+            storyImgEl.src = storyImages[idx];
+        }
+        showStory(currentStory);
+        document.getElementById('next-story').onclick = function() {
+            currentStory = (currentStory + 1) % storyImages.length;
+            showStory(currentStory);
+        };
+        document.getElementById('prev-story').onclick = function() {
+            currentStory = (currentStory - 1 + storyImages.length) % storyImages.length;
+            showStory(currentStory);
+        };
+        // Optional: auto-advance every 3 seconds like Instagram stories
+        setInterval(() => {
+            currentStory = (currentStory + 1) % storyImages.length;
+            showStory(currentStory);
+        }, 3000);
     </script>
 </body>
 </html>
