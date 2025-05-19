@@ -248,6 +248,23 @@
         <!-- You can keep your other cards below or add more from Popmart -->
     </section>
 
+    <section class="collection-grid" id="collection-2">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image-2" src="images/THE MONSTERS - I FOUND YOU Vinyl Face Doll.jpg" alt="Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story-2" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story-2" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll</h3>
+                <p>Vinyl Face Doll</p>
+                <a href="#giveaway" class="signup-link">Sign Up for Giveaway</a>
+            </div>
+        </div>
+    </section>
+
     <section class="giveaway-section" id="giveaway">
         <div class="giveaway-box">
             <h2>Enter the Giveaway</h2>
@@ -332,6 +349,31 @@
         setInterval(() => {
             currentStory = (currentStory + 1) % storyImages.length;
             showStory(currentStory);
+        }, 3000);
+
+        // Story/Instagram-like image shuffle for second product card
+        const storyImages2 = [
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll.jpg",
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll2.jpg",
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll3.jpg"
+        ];
+        let currentStory2 = Math.floor(Math.random() * storyImages2.length);
+        const storyImgEl2 = document.getElementById('story-image-2');
+        function showStory2(idx) {
+            storyImgEl2.src = storyImages2[idx];
+        }
+        showStory2(currentStory2);
+        document.getElementById('next-story-2').onclick = function() {
+            currentStory2 = (currentStory2 + 1) % storyImages2.length;
+            showStory2(currentStory2);
+        };
+        document.getElementById('prev-story-2').onclick = function() {
+            currentStory2 = (currentStory2 - 1 + storyImages2.length) % storyImages2.length;
+            showStory2(currentStory2);
+        };
+        setInterval(() => {
+            currentStory2 = (currentStory2 + 1) % storyImages2.length;
+            showStory2(currentStory2);
         }, 3000);
     </script>
 </body>
