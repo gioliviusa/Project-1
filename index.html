@@ -269,7 +269,43 @@
             <div class="product-card__info">
                 <h3>Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll</h3>
                 <p>Vinyl Face Doll</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS - I FOUND YOU</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll is a collectible vinyl figure from Popmart's beloved THE MONSTERS series. This edition features Labubu with a unique face design, making it a must-have for fans and collectors.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
                 <a href="#giveaway" class="signup-link">Sign Up for Giveaway</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="collection-grid" id="collection-3">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image-3" src="images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll.jpg" alt="Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story-3" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story-3" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll</h3>
+                <p>Vinyl Face Doll</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS - ANGEL IN CLOUDS</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll is a collectible vinyl figure from Popmart's beloved THE MONSTERS series. This edition features Labubu as an angel in the clouds, making it a dreamy and unique addition for fans and collectors.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
+                <a href="https://www.popmart.com/us/products/1607/THE-MONSTERS---ANGEL-IN-CLOUDS-Vinyl-Face-Doll" target="_blank" class="signup-link">View on Popmart</a>
+                <a href="#giveaway" class="signup-link" style="margin-left:10px;">Sign Up for Giveaway</a>
             </div>
         </div>
     </section>
@@ -383,6 +419,31 @@
         setInterval(() => {
             currentStory2 = (currentStory2 + 1) % storyImages2.length;
             showStory2(currentStory2);
+        }, 3000);
+
+        // Story/Instagram-like image shuffle for third product card
+        const storyImages3 = [
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll.jpg",
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll2.jpg",
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll3.jpg"
+        ];
+        let currentStory3 = Math.floor(Math.random() * storyImages3.length);
+        const storyImgEl3 = document.getElementById('story-image-3');
+        function showStory3(idx) {
+            storyImgEl3.src = storyImages3[idx];
+        }
+        showStory3(currentStory3);
+        document.getElementById('next-story-3').onclick = function() {
+            currentStory3 = (currentStory3 + 1) % storyImages3.length;
+            showStory3(currentStory3);
+        };
+        document.getElementById('prev-story-3').onclick = function() {
+            currentStory3 = (currentStory3 - 1 + storyImages3.length) % storyImages3.length;
+            showStory3(currentStory3);
+        };
+        setInterval(() => {
+            currentStory3 = (currentStory3 + 1) % storyImages3.length;
+            showStory3(currentStory3);
         }, 3000);
     </script>
 </body>
