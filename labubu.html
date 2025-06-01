@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labubu The Monsters Collection Giveaway - Popmart</title>
+    <style>
+        :root {
+            --primary-color: #b452ff;
+            --secondary-color: #2D2D2D;
+            --accent-color: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: var(--secondary-color);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            width: 120px;
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav__link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .hero {
+            position: relative;
+            padding: 4rem 5%;
+            text-align: center;
+            background: linear-gradient(45deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+        }
+
+        .hero__title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero__subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+        }
+
+        .product-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card__image {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background: #f5f5f5;
+        }
+
+        .product-card__info {
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .giveaway-section {
+            padding: 4rem 5%;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .giveaway-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .giveaway-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .form-input {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #FF1A4F;
+            transform: scale(1.02);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .countdown-item {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .signup-link {
+            display: inline-block;
+            margin-top: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .signup-link:hover {
+            background: #FF1A4F;
+        }
+
+        .story-image-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .story-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .story-controls button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: background 0.2s;
+        }
+
+        .story-controls button:hover {
+            background: #FF1A4F;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero__title {
+                font-size: 2rem;
+            }
+        }
+
+        footer {
+            background: #2D2D2D;
+            color: #fff;
+            padding: 2rem 5% 1rem 5%;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 3rem;
+        }
+
+        footer div {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: underline;
+        }
+
+        #terms, #privacy {
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.95rem;
+            color: #eee;
+            background: rgba(255,255,255,0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        #terms h4, #privacy h4 {
+            color: #FFD700;
+            margin-bottom: 0.7rem;
+        }
+
+        #terms ol {
+            padding-left: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="popmart-logo.png" alt="Popmart" class="header__logo">
+        <nav class="nav">
+            <div class="nav__links">
+                <a href="#collection" class="nav__link">Collection</a>
+                <a href="#giveaway" class="nav__link">Giveaway</a>
+                <a href="#about" class="nav__link">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1 class="hero__title">Labubu The Monsters Collection</h1>
+        <p class="hero__subtitle">Enter to Win Exclusive Limited Edition Figures!</p>
+    </section>
+
+    <section class="collection-grid" id="collection">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image" src="images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card.jpg" alt="Labubu THE MONSTERS Let's Checkmate Series" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS Let's Checkmate Series</h3>
+                <p>Vinyl Plush Hanging Card</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Plush + Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS Let's Checkmate</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS Let's Checkmate Series Vinyl Plush Hanging Card is a collectible plush and vinyl figure from Popmart's popular THE MONSTERS series. Each figure features a unique chess-themed design and comes with a hanging card, perfect for display or gifting.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
+                <a href="https://www.popmart.com/us/products/1897/THE-MONSTERS-Let's-Checkmate-Series-Vinyl-Plush-Hanging-Card" target="_blank" class="signup-link">View on Popmart</a>
+                <a href="#giveaway" class="signup-link" style="margin-left:10px;">Sign Up for Giveaway</a>
+            </div>
+        </div>
+        <!-- You can keep your other cards below or add more from Popmart -->
+    </section>
+
+    <section class="collection-grid" id="collection-2">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image-2" src="images/THE MONSTERS - I FOUND YOU Vinyl Face Doll.jpg" alt="Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story-2" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story-2" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll</h3>
+                <p>Vinyl Face Doll</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS - I FOUND YOU</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS - I FOUND YOU Vinyl Face Doll is a collectible vinyl figure from Popmart's beloved THE MONSTERS series. This edition features Labubu with a unique face design, making it a must-have for fans and collectors.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
+                <a href="#giveaway" class="signup-link">Sign Up for Giveaway</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="collection-grid" id="collection-3">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image-3" src="images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll.jpg" alt="Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll" class="product-card__image">
+                <div class="story-controls">
+                    <button id="prev-story-3" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story-3" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll</h3>
+                <p>Vinyl Face Doll</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS - ANGEL IN CLOUDS</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll is a collectible vinyl figure from Popmart's beloved THE MONSTERS series. This edition features Labubu as an angel in the clouds, making it a dreamy and unique addition for fans and collectors.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
+                <a href="https://www.popmart.com/us/products/1607/THE-MONSTERS---ANGEL-IN-CLOUDS-Vinyl-Face-Doll" target="_blank" class="signup-link">View on Popmart</a>
+                <a href="#giveaway" class="signup-link" style="margin-left:10px;">Sign Up for Giveaway</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="collection-grid" id="collection-4">
+        <div class="product-card">
+            <div class="story-image-wrapper">
+                <img id="story-image-4" src="images/MEGA%20LABUBU%20TEC%201000%25%20All%20About%20Us.jpg" alt="Labubu THE MONSTERS Card 4" class="product-card__image" style="background:#fff;object-fit:cover;width:100%;height:260px;">
+                <div class="story-controls">
+                    <button id="prev-story-4" aria-label="Previous" style="margin-right:10px;">&#8592;</button>
+                    <button id="next-story-4" aria-label="Next">&#8594;</button>
+                </div>
+            </div>
+            <div class="product-card__info">
+                <h3>Labubu THE MONSTERS - Special Edition 4</h3>
+                <p>Vinyl Face Doll</p>
+                <ul style="margin: 1em 0; padding-left: 1.2em; text-align:left; font-size: 1rem; color: #444;">
+                  <li><strong>Material:</strong> Vinyl</li>
+                  <li><strong>Size:</strong> About 13cm</li>
+                  <li><strong>Series:</strong> THE MONSTERS - Special 4</li>
+                  <li><strong>Official Release:</strong> Popmart</li>
+                  <li><strong>Availability:</strong> In Stock</li>
+                </ul>
+                <p style="font-size:0.98rem; color:#555; margin-bottom:0.7em;">Labubu THE MONSTERS - Special Edition 4 is a collectible vinyl figure from Popmart's beloved THE MONSTERS series. Unique and fun for fans and collectors.</p>
+                <p style="font-weight:bold; color:#b452ff; font-size:1.1rem; margin-bottom:0.7em;">Price: $16.99</p>
+                <a href="#giveaway" class="signup-link">Sign Up for Giveaway</a>
+            </div>
+        </div>
+    </section>
+    <section class="collection-grid" id="collection-5" style="display:none;"></section>
+    <section class="collection-grid" id="collection-6" style="display:none;"></section>
+    <section class="collection-grid" id="collection-7" style="display:none;"></section>
+
+    <section class="giveaway-section" id="giveaway">
+        <div class="giveaway-box">
+            <h2>Enter the Giveaway</h2>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div>24</div>
+                    <small>Hours</small>
+                </div>
+                <div class="countdown-item">
+                    <div>60</div>
+                    <small>Minutes</small>
+                </div>
+                <div class="countdown-item">
+                    <div>60</div>
+                    <small>Seconds</small>
+                </div>
+            </div>
+            <form class="giveaway-form">
+                <input type="text" class="form-input" placeholder="Full Name" required>
+                <input type="email" class="form-input" placeholder="Email Address" required>
+                <button type="submit" class="submit-btn">Enter Now</button>
+            </form>
+            <a href="#signup" class="signup-link">Sign Up for Updates</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <div style="margin-bottom: 1.2rem;">
+                <strong>Labubu THE MONSTERS Collection Giveaway</strong> &copy; 2025 Popmart Fan Page. All rights reserved.
+            </div>
+            <div style="margin-bottom: 1.2rem;">
+                <a href="#terms" style="color: #FFD700; text-decoration: underline; margin-right: 1.5rem;">Terms &amp; Conditions</a>
+                <a href="#privacy" style="color: #FFD700; text-decoration: underline;">Privacy Policy</a>
+            </div>
+            <div style="font-size: 0.95rem; color: #ccc;">
+                This site is a fan project and is not affiliated with or endorsed by Popmart. All product names, logos, and brands are property of their respective owners.
+            </div>
+        </div>
+        <div id="terms">
+            <h4 style="color:#FFD700; margin-bottom:0.7rem;">Terms &amp; Conditions</h4>
+            <ol style="padding-left:1.2em;">
+                <li>This giveaway is open to participants aged 18 and above, unless otherwise specified.</li>
+                <li>One entry per person. Duplicate entries will be disqualified.</li>
+                <li>Winners will be selected at random and notified via the email provided.</li>
+                <li>No purchase necessary to enter or win. Odds of winning depend on the number of eligible entries received.</li>
+                <li>By entering, you agree to receive occasional updates about Popmart and Labubu THE MONSTERS products. You may unsubscribe at any time.</li>
+                <li>Prizes are non-transferable and cannot be exchanged for cash.</li>
+                <li>This giveaway is not sponsored, endorsed, or administered by Popmart or any of its affiliates.</li>
+                <li>By participating, you agree to these terms and our privacy policy.</li>
+            </ol>
+        </div>
+        <div id="privacy">
+            <h4 style="color:#FFD700; margin-bottom:0.7rem;">Privacy Policy</h4>
+            <p>Your information will only be used for the purposes of administering this giveaway and sending updates if you opt in. We do not share your data with third parties. For any privacy concerns, please contact us via the form above.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        const countdownItems = document.querySelectorAll('.countdown-item div');
+        let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+
+        function updateTimer() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+            
+            countdownItems[0].textContent = hours.toString().padStart(2, '0');
+            countdownItems[1].textContent = minutes.toString().padStart(2, '0');
+            countdownItems[2].textContent = seconds.toString().padStart(2, '0');
+            
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.querySelector('.countdown').innerHTML = '<div>Giveaway Ended!</div>';
+            }
+            timeLeft--;
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        // Form Submission
+        document.querySelector('.giveaway-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const entries = Object.fromEntries(formData.entries());
+            
+            // Add your submission logic here
+            alert(`Thank you ${entries.name}! Good luck!`);
+            e.target.reset();
+        });
+
+        // Story/Instagram-like image shuffle for first product card
+        const storyImages = [
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card.jpg",
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card2.jpg",
+            "images/THE MONSTERS Let's Checkmate Series-Vinyl Plush Hanging Card3.jpg"
+        ];
+        let currentStory = Math.floor(Math.random() * storyImages.length);
+        const storyImgEl = document.getElementById('story-image');
+        function showStory(idx) {
+            storyImgEl.src = storyImages[idx];
+        }
+        showStory(currentStory);
+        document.getElementById('next-story').onclick = function() {
+            currentStory = (currentStory + 1) % storyImages.length;
+            showStory(currentStory);
+        };
+        document.getElementById('prev-story').onclick = function() {
+            currentStory = (currentStory - 1 + storyImages.length) % storyImages.length;
+            showStory(currentStory);
+        };
+        // Optional: auto-advance every 3 seconds like Instagram stories
+        setInterval(() => {
+            currentStory = (currentStory + 1) % storyImages.length;
+            showStory(currentStory);
+        }, 3000);
+
+        // Story/Instagram-like image shuffle for second product card
+        const storyImages2 = [
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll.jpg",
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll2.jpg",
+            "images/THE MONSTERS - I FOUND YOU Vinyl Face Doll3.jpg"
+        ];
+        let currentStory2 = Math.floor(Math.random() * storyImages2.length);
+        const storyImgEl2 = document.getElementById('story-image-2');
+        function showStory2(idx) {
+            storyImgEl2.src = storyImages2[idx];
+        }
+        showStory2(currentStory2);
+        document.getElementById('next-story-2').onclick = function() {
+            currentStory2 = (currentStory2 + 1) % storyImages2.length;
+            showStory2(currentStory2);
+        };
+        document.getElementById('prev-story-2').onclick = function() {
+            currentStory2 = (currentStory2 - 1 + storyImages2.length) % storyImages2.length;
+            showStory2(currentStory2);
+        };
+        setInterval(() => {
+            currentStory2 = (currentStory2 + 1) % storyImages2.length;
+            showStory2(currentStory2);
+        }, 3000);
+
+        // Story/Instagram-like image shuffle for third product card
+        const storyImages3 = [
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll.jpg",
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll2.jpg",
+            "images/THE MONSTERS - ANGEL IN CLOUDS Vinyl Face Doll3.jpg"
+        ];
+        let currentStory3 = Math.floor(Math.random() * storyImages3.length);
+        const storyImgEl3 = document.getElementById('story-image-3');
+        function showStory3(idx) {
+            storyImgEl3.src = storyImages3[idx];
+        }
+        showStory3(currentStory3);
+        document.getElementById('next-story-3').onclick = function() {
+            currentStory3 = (currentStory3 + 1) % storyImages3.length;
+            showStory3(currentStory3);
+        };
+        document.getElementById('prev-story-3').onclick = function() {
+            currentStory3 = (currentStory3 - 1 + storyImages3.length) % storyImages3.length;
+            showStory3(currentStory3);
+        };
+        setInterval(() => {
+            currentStory3 = (currentStory3 + 1) % storyImages3.length;
+            showStory3(currentStory3);
+        }, 3000);
+
+        // Story/Instagram-like image shuffle for cards 4-7
+        const storyImages4 = [
+            "images/MEGA%20LABUBU%20TEC%201000%25%20All%20About%20Us.jpg",
+            "images/MEGA%20LABUBU%20TEC%201000%25%20All%20About%20Us2.jpg",
+            "images/MEGA%20LABUBU%20TEC%201000%25%20All%20About%20Us3.jpg"
+        ];
+        let currentStory4 = 0;
+        const storyImgEl4 = document.getElementById('story-image-4');
+        function showStory4(idx) {
+            storyImgEl4.src = storyImages4[idx];
+        }
+        showStory4(currentStory4);
+        document.getElementById('next-story-4').onclick = function() {
+            currentStory4 = (currentStory4 + 1) % storyImages4.length;
+            showStory4(currentStory4);
+        };
+        document.getElementById('prev-story-4').onclick = function() {
+            currentStory4 = (currentStory4 - 1 + storyImages4.length) % storyImages4.length;
+            showStory4(currentStory4);
+        };
+        setInterval(() => {
+            currentStory4 = (currentStory4 + 1) % storyImages4.length;
+            showStory4(currentStory4);
+        }, 3000);
+
+        const storyImages5 = [
+            "images/2.png",
+            "images/3.png",
+            "images/1.png"
+        ];
+        let currentStory5 = 0;
+        const storyImgEl5 = document.getElementById('story-image-5');
+        function showStory5(idx) {
+            storyImgEl5.src = storyImages5[idx];
+        }
+        showStory5(currentStory5);
+        document.getElementById('next-story-5').onclick = function() {
+            currentStory5 = (currentStory5 + 1) % storyImages5.length;
+            showStory5(currentStory5);
+        };
+        document.getElementById('prev-story-5').onclick = function() {
+            currentStory5 = (currentStory5 - 1 + storyImages5.length) % storyImages5.length;
+            showStory5(currentStory5);
+        };
+        setInterval(() => {
+            currentStory5 = (currentStory5 + 1) % storyImages5.length;
+            showStory5(currentStory5);
+        }, 3000);
+
+        const storyImages6 = [
+            "images/3.png",
+            "images/1.png",
+            "images/2.png"
+        ];
+        let currentStory6 = 0;
+        const storyImgEl6 = document.getElementById('story-image-6');
+        function showStory6(idx) {
+            storyImgEl6.src = storyImages6[idx];
+        }
+        showStory6(currentStory6);
+        document.getElementById('next-story-6').onclick = function() {
+            currentStory6 = (currentStory6 + 1) % storyImages6.length;
+            showStory6(currentStory6);
+        };
+        document.getElementById('prev-story-6').onclick = function() {
+            currentStory6 = (currentStory6 - 1 + storyImages6.length) % storyImages6.length;
+            showStory6(currentStory6);
+        };
+        setInterval(() => {
+            currentStory6 = (currentStory6 + 1) % storyImages6.length;
+            showStory6(currentStory6);
+        }, 3000);
+
+        const storyImages7 = [
+            "images/Ian (3) (2).png",
+            "images/1.png",
+            "images/2.png"
+        ];
+        let currentStory7 = 0;
+        const storyImgEl7 = document.getElementById('story-image-7');
+        function showStory7(idx) {
+            storyImgEl7.src = storyImages7[idx];
+        }
+        showStory7(currentStory7);
+        document.getElementById('next-story-7').onclick = function() {
+            currentStory7 = (currentStory7 + 1) % storyImages7.length;
+            showStory7(currentStory7);
+        };
+        document.getElementById('prev-story-7').onclick = function() {
+            currentStory7 = (currentStory7 - 1 + storyImages7.length) % storyImages7.length;
+            showStory7(currentStory7);
+        };
+        setInterval(() => {
+            currentStory7 = (currentStory7 + 1) % storyImages7.length;
+            showStory7(currentStory7);
+        }, 3000);
+    </script>
+</body>
+</html>
