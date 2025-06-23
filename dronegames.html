@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS | Mobile Defense Command</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #0d2b46;
+            --secondary: #1a4d7c;
+            --accent: #00c896;
+            --dark: #000;
+            --darker: #0a0a0a;
+            --light: #e6f7ff;
+            --danger: #ff4d6d;
+            --warning: #ffb74d;
+            --success: #4ade80;
+            --panel-bg: rgba(20, 20, 30, 0.9);
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(40, 40, 60, 0.2) 0px, transparent 1px),
+                radial-gradient(circle at 90% 80%, rgba(40, 40, 60, 0.2) 0px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--accent), #0077b6);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 200, 150, 0.5);
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, var(--accent), #00e6cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .system-status {
+            background: rgba(0, 200, 150, 0.15);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(0, 200, 150, 0.2);
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .system-status.online {
+            color: var(--success);
+        }
+        
+        .system-status.alert {
+            color: var(--warning);
+            background: rgba(255, 183, 77, 0.15);
+            box-shadow: 0 0 10px rgba(255, 183, 77, 0.2);
+        }
+        
+        .system-status.critical {
+            color: var(--danger);
+            background: rgba(255, 77, 109, 0.15);
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+            animation: pulse-alert 1.5s infinite;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .auth-buttons button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        
+        .auth-buttons button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 200, 150, 0.4);
+        }
+        
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .panel {
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 200, 150, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* System Status */
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .status-card {
+            background: rgba(29, 77, 125, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .status-card.online::before {
+            background: var(--success);
+        }
+        
+        .status-card.warning::before {
+            background: var(--warning);
+        }
+        
+        .status-card.critical::before {
+            background: var(--danger);
+        }
+        
+        .status-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .status-value {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .status-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .online { color: var(--success); }
+        .warning { color: var(--warning); }
+        .critical { color: var(--danger); }
+        
+        /* Threat Map */
+        .threat-map {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(160deg, #0a1f36, #0d2b46);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 200, 150, 0.2);
+        }
+        
+        .map-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .drone {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50% 50% 0 50%;
+            background: var(--success);
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        .drone::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 6px;
+            height: 6px;
+            background: var(--dark);
+            border-radius: 50%;
+        }
+        
+        .threat {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--danger);
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px var(--danger);
+            animation: pulse 1s infinite;
+        }
+        
+        .threat::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--dark);
+        }
+        
+        .base {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--dark);
+            box-shadow: 0 0 25px rgba(0, 200, 150, 0.7);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: rotate(45deg) scale(1); }
+            50% { opacity: 1; transform: rotate(45deg) scale(1.1); }
+            100% { opacity: 0.7; transform: rotate(45deg) scale(1); }
+        }
+        
+        @keyframes pulse-alert {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        /* Command Panel */
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .command-btn {
+            background: rgba(29, 77, 125, 0.3);
+            border: 1px solid rgba(0, 200, 150, 0.3);
+            color: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .command-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .command-btn:hover::before {
+            left: 100%;
+        }
+        
+        .command-btn:hover {
+            background: rgba(29, 77, 125, 0.6);
+            transform: translateX(3px);
+            border-color: var(--accent);
+        }
+        
+        .command-icon {
+            font-size: 20px;
+            color: var(--accent);
+            min-width: 25px;
+        }
+        
+        .command-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* System Log */
+        .log-container {
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 8px;
+        }
+        
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 12px;
+            display: flex;
+            gap: 8px;
+            animation: fadeIn 0.5s;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .log-time {
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 60px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+        
+        .log-message {
+            flex: 1;
+            font-size: 12px;
+        }
+        
+        .log-warning { border-left-color: var(--warning); }
+        .log-critical { border-left-color: var(--danger); }
+        .log-normal { border-left-color: var(--accent); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            border-top: 1px solid rgba(0, 200, 150, 0.1);
+            position: relative;
+        }
+        
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            padding: 6px 15px;
+            background: rgba(0, 200, 150, 0.1);
+            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        /* Mission Control Section */
+        .mission-control {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .mission-panel {
+            background: var(--panel-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 200, 150, 0.15);
+        }
+        
+        .mission-title {
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        
+        .mission-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .mission-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        .mission-label {
+            opacity: 0.8;
+        }
+        
+        .mission-value {
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        /* Authorization Overlay */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .auth-box {
+            background: linear-gradient(145deg, #0a1f36, #0d2b46);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 200, 150, 0.3);
+            border: 1px solid rgba(0, 200, 150, 0.2);
+            text-align: center;
+        }
+        
+        .auth-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .auth-input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 200, 150, 0.2);
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .auth-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 15px;
+            width: 100%;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .auth-btn:hover {
+            background: #00e6cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 200, 150, 0.4);
+        }
+        
+        .biometric {
+            margin: 15px 0;
+            font-size: 40px;
+            color: var(--accent);
+        }
+        
+        .security-level {
+            margin-top: 15px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Mobile-specific enhancements */
+        @media (min-width: 768px) {
+            .dashboard {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .threat-map {
+                height: 400px;
+            }
+            
+            .mission-control {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .mission-panel {
+                flex: 1;
+                min-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-box">
+            <div class="logo" style="justify-content: center; margin-bottom: 15px;">
+                <div class="logo-icon">
+                    <i class="fas fa-satellite"></i>
+                </div>
+                <div class="logo-text">AEGIS DEFENSE</div>
+            </div>
+            
+            <div class="auth-title">SECURE ACCESS REQUIRED</div>
+            <div class="biometric">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+            <p>Biometric authentication required</p>
+            
+            <input type="password" class="auth-input" placeholder="Authorization Code" id="authCode">
+            
+            <button class="auth-btn" id="authBtn">
+                <i class="fas fa-unlock"></i> GRANT ACCESS
+            </button>
+            
+            <div class="security-level">
+                <i class="fas fa-shield-alt"></i> SECURITY LEVEL: ALPHA
+            </div>
+        </div>
+    </div>
+    
+    <div class="container" id="mainContainer" style="display: none;">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                    <div class="logo-text">AEGIS</div>
+                </div>
+                <div class="auth-buttons">
+                    <button id="loginBtn"><i class="fas fa-fingerprint"></i> LOGIN</button>
+                    <button id="lockBtn"><i class="fas fa-lock"></i> LOCK</button>
+                </div>
+            </div>
+            <div class="system-status online" id="systemStatus">
+                <i class="fas fa-shield-alt"></i>
+                SYSTEM STATUS: OPERATIONAL
+            </div>
+        </header>
+        
+        <main>
+            <div class="dashboard">
+                <!-- System Status Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title"><i class="fas fa-heartbeat"></i> SYSTEM STATUS</h2>
+                        <span class="online"><i class="fas fa-circle"></i> OPERATIONAL</span>
+                    </div>
+                    <div class="status-grid">
+                        <div class="status-card online">
+                            <div class="status-icon online">
+                                <i class="fas fa-fighter-jet"></i>
+                            </div>
+                            <div class="status-value online">28</div>
+                            <div class="status-label">ACTIVE DRONES</div>
+                        </div>
+                        <div class="status-card warning">
+                            <div class="status-icon warning">
+                                <i class="fas fa-radar"></i>
+                            </div>
+                            <div class="status-value warning">4</div>
+                            <div class="status-label">DETECTED THREATS</div>
+                        </div>
+                        <div class="status-card online">
+                            <div class="status-icon online">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="status-value online">99.7%</div>
+                            <div class="status-label">NETWORK STABILITY</div>
+                        </div>
+                        <div class="status-card critical">
+                            <div class="status-icon critical">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="status-value critical">2</div>
+                            <div class="status-label">CRITICAL ALERTS</div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-header" style="margin-top: 15px;">
+                        <h2 class="panel-title"><i class="fas fa-plane"></i> ACTIVE SYSTEMS</h2>
+                    </div>
+                    <div class="status-grid">
+                        <div class="status-card online">
+                            <div class="status-icon online">
+                                <i class="fas fa-jet-fighter"></i>
+                            </div>
+                            <div class="status-value">REAPER-7</div>
+                            <div class="status-label">SECTOR 4</div>
+                        </div>
+                        <div class="status-card online">
+                            <div class="status-icon online">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <div class="status-value">GUARDIAN-12</div>
+                            <div class="status-label">ZONE ALPHA</div>
+                        </div>
+                        <div class="status-card online">
+                            <div class="status-icon online">
+                                <i class="fas fa-ship"></i>
+                            </div>
+                            <div class="status-value">VANGUARD-3</div>
+                            <div class="status-label">COASTAL DEF</div>
+                        </div>
+                        <div class="status-card warning">
+                            <div class="status-icon warning">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="status-value">SENTINEL-9</div>
+                            <div class="status-label">MAINTENANCE</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Threat Map Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title"><i class="fas fa-map"></i> THREAT MAP</h2>
+                        <span class="warning"><i class="fas fa-triangle-exclamation"></i> 4 THREATS</span>
+                    </div>
+                    <div class="threat-map">
+                        <div class="map-grid"></div>
+                        <div class="base">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <!-- Drones and threats will be added here by JS -->
+                    </div>
+                </div>
+                
+                <!-- Command Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title"><i class="fas fa-terminal"></i> COMMAND CENTER</h2>
+                        <span class="online"><i class="fas fa-key"></i> SECURE</span>
+                    </div>
+                    <div class="command-list">
+                        <div class="command-btn">
+                            <div class="command-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="command-text">ACTIVATE DEFENSE</div>
+                        </div>
+                        <div class="command-btn">
+                            <div class="command-icon">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <div class="command-text">INITIATE SURVEILLANCE</div>
+                        </div>
+                        <div class="command-btn">
+                            <div class="command-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="command-text">UPDATE NETWORK</div>
+                        </div>
+                        <div class="command-btn">
+                            <div class="command-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="command-text">ENGAGE COUNTERMEASURES</div>
+                        </div>
+                        <div class="command-btn">
+                            <div class="command-icon">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div class="command-text">RUN DIAGNOSTICS</div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-header" style="margin-top: 15px;">
+                        <h2 class="panel-title"><i class="fas fa-clipboard-list"></i> SYSTEM LOG</h2>
+                        <span><i class="fas fa-clock"></i> REAL-TIME</span>
+                    </div>
+                    <div class="log-container" id="logContainer">
+                        <!-- Logs will be added here by JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mission Control Section -->
+            <div class="mission-control">
+                <div class="mission-panel">
+                    <h3 class="mission-title"><i class="fas fa-crosshairs"></i> ACTIVE MISSIONS</h3>
+                    <div class="mission-content">
+                        <div class="mission-item">
+                            <div class="mission-label">OPERATION SHIELD</div>
+                            <div class="mission-value online">ACTIVE</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">OPERATION SENTRY</div>
+                            <div class="mission-value online">ACTIVE</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">OPERATION HORIZON</div>
+                            <div class="mission-value warning">PAUSED</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">OPERATION VIGILANCE</div>
+                            <div class="mission-value critical">ABORTED</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mission-panel">
+                    <h3 class="mission-title"><i class="fas fa-battery-full"></i> RESOURCE STATUS</h3>
+                    <div class="mission-content">
+                        <div class="mission-item">
+                            <div class="mission-label">POWER CAPACITY</div>
+                            <div class="mission-value online">94%</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 94%"></div>
+                        </div>
+                        
+                        <div class="mission-item">
+                            <div class="mission-label">COMMUNICATIONS</div>
+                            <div class="mission-value online">100%</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                        
+                        <div class="mission-item">
+                            <div class="mission-label">WEAPONS SYSTEMS</div>
+                            <div class="mission-value warning">87%</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 87%"></div>
+                        </div>
+                        
+                        <div class="mission-item">
+                            <div class="mission-label">SENSOR ARRAY</div>
+                            <div class="mission-value critical">63%</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 63%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mission-panel">
+                    <h3 class="mission-title"><i class="fas fa-user-secret"></i> PERSONNEL</h3>
+                    <div class="mission-content">
+                        <div class="mission-item">
+                            <div class="mission-label">ACTIVE OPERATORS</div>
+                            <div class="mission-value">12</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">ON DUTY</div>
+                            <div class="mission-value">8</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">SECURITY CLEARANCE</div>
+                            <div class="mission-value">LEVEL 5</div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-label">LAST ACTIVITY</div>
+                            <div class="mission-value">00:03:12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>AEGIS DEFENSE SYSTEM | CLASSIFIED: TOP SECRET | AUTHORIZED PERSONNEL ONLY</p>
+            <div class="security-badge">
+                <i class="fas fa-lock"></i>
+                <span>ENCRYPTED: AES-256 SECURE CHANNEL ACTIVE</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Generate random drones and threats on the map
+        function generateMapElements() {
+            const threatMap = document.querySelector('.threat-map');
+            
+            // Clear existing elements
+            document.querySelectorAll('.drone, .threat').forEach(el => el.remove());
+            
+            // Generate friendly drones
+            for (let i = 0; i < 10; i++) {
+                const drone = document.createElement('div');
+                drone.className = 'drone';
+                drone.style.left = `${5 + Math.random() * 90}%`;
+                drone.style.top = `${5 + Math.random() * 85}%`;
+                threatMap.appendChild(drone);
+            }
+            
+            // Generate threats
+            for (let i = 0; i < 4; i++) {
+                const threat = document.createElement('div');
+                threat.className = 'threat';
+                threat.style.left = `${15 + Math.random() * 70}%`;
+                threat.style.top = `${15 + Math.random() * 70}%`;
+                threatMap.appendChild(threat);
+            }
+        }
+        
+        // Generate system log entries
+        function generateLogEntry() {
+            const logs = [
+                {type: 'normal', msg: 'System diagnostics completed. All systems nominal.'},
+                {type: 'normal', msg: 'Drone Guardian-12 entered surveillance zone Delta.'},
+                {type: 'warning', msg: 'Unidentified signature detected in sector 7.'},
+                {type: 'critical', msg: 'Thermal signature detected approaching perimeter!'},
+                {type: 'normal', msg: 'Countermeasure systems armed and ready.'},
+                {type: 'warning', msg: 'Communication latency detected with Sentinel-9.'},
+                {type: 'normal', msg: 'Updated flight paths uploaded to Reaper squadron.'},
+                {type: 'critical', msg: 'ALERT: Multiple signatures detected in restricted airspace!'},
+                {type: 'normal', msg: 'Vanguard-3 coastal patrol completed successfully.'},
+                {type: 'warning', msg: 'Weather conditions deteriorating in sector 5.'},
+                {type: 'normal', msg: 'New intelligence data received and processed.'},
+                {type: 'critical', msg: 'SECURITY BREACH DETECTED IN SUBSYSTEM 4!'}
+            ];
+            
+            const randomLog = logs[Math.floor(Math.random() * logs.length)];
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${randomLog.type}`;
+            logEntry.innerHTML = `
+                <div class="log-time">${time}</div>
+                <div class="log-message">${randomLog.msg}</div>
+            `;
+            
+            const container = document.getElementById('logContainer');
+            container.prepend(logEntry);
+            
+            // Keep only the latest 10 logs
+            if (container.children.length > 10) {
+                container.removeChild(container.lastChild);
+            }
+        }
+        
+        // Simulate system status updates
+        function updateSystemStatus() {
+            const activeDrones = document.querySelectorAll('.status-value')[0];
+            const detectedThreats = document.querySelectorAll('.status-value')[1];
+            const statusIndicator = document.querySelector('.system-status');
+            
+            // Random fluctuations for demo
+            const droneCount = 28 + Math.floor(Math.random() * 3) - 1;
+            const threatCount = 4 + Math.floor(Math.random() * 3) - 1;
+            
+            activeDrones.textContent = droneCount;
+            detectedThreats.textContent = threatCount;
+            
+            // Update status color based on threat level
+            const threatStatus = document.querySelector('.status-icon:nth-child(5)');
+            if (threatCount > 5) {
+                threatStatus.className = 'status-icon critical';
+                detectedThreats.className = 'status-value critical';
+                statusIndicator.className = 'system-status critical';
+                statusIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> SYSTEM STATUS: CRITICAL THREAT';
+            } else if (threatCount > 3) {
+                threatStatus.className = 'status-icon warning';
+                detectedThreats.className = 'status-value warning';
+                statusIndicator.className = 'system-status alert';
+                statusIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYSTEM STATUS: ELEVATED THREAT';
+            } else {
+                threatStatus.className = 'status-icon online';
+                detectedThreats.className = 'status-value online';
+                statusIndicator.className = 'system-status online';
+                statusIndicator.innerHTML = '<i class="fas fa-shield-alt"></i> SYSTEM STATUS: OPERATIONAL';
+            }
+        }
+        
+        // Initialize the system
+        document.addEventListener('DOMContentLoaded', function() {
+            // Authentication
+            document.getElementById('authBtn').addEventListener('click', function() {
+                const code = document.getElementById('authCode').value;
+                if (code === 'AEGIS-ALPHA') {
+                    document.getElementById('authOverlay').style.display = 'none';
+                    document.getElementById('mainContainer').style.display = 'block';
+                    
+                    // Generate initial map
+                    generateMapElements();
+                    
+                    // Generate initial logs
+                    for (let i = 0; i < 6; i++) {
+                        setTimeout(() => generateLogEntry(), i * 300);
+                    }
+                    
+                    // Update system every 5 seconds
+                    setInterval(updateSystemStatus, 5000);
+                    
+                    // Add new log every 3-8 seconds
+                    setInterval(generateLogEntry, 3000 + Math.random() * 5000);
+                    
+                    // Regenerate map every 10 seconds
+                    setInterval(generateMapElements, 10000);
+                } else {
+                    alert('INVALID AUTHORIZATION CODE\nACCESS DENIED');
+                }
+            });
+            
+            // Add button functionality
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                document.getElementById('authOverlay').style.display = 'flex';
+                document.getElementById('mainContainer').style.display = 'none';
+            });
+            
+            document.getElementById('lockBtn').addEventListener('click', function() {
+                alert('SYSTEM LOCK INITIATED: All controls disabled. Defense systems remain active.');
+                document.querySelector('.system-status').className = 'system-status critical';
+                document.querySelector('.system-status').innerHTML = '<i class="fas fa-lock"></i> SYSTEM LOCKED: AWAITING AUTHORIZATION';
+            });
+            
+            // Add command button functionality
+            document.querySelectorAll('.command-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const command = this.querySelector('.command-text').textContent;
+                    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    // Add log entry
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'log-entry log-normal';
+                    logEntry.innerHTML = `
+                        <div class="log-time">${time}</div>
+                        <div class="log-message">Command issued: ${command}</div>
+                    `;
+                    
+                    const container = document.getElementById('logContainer');
+                    container.prepend(logEntry);
+                    
+                    // Keep only the latest 10 logs
+                    if (container.children.length > 10) {
+                        container.removeChild(container.lastChild);
+                    }
+                    
+                    // Visual feedback
+                    this.style.background = 'rgba(0, 200, 150, 0.3)';
+                    this.style.borderColor = 'var(--accent)';
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.borderColor = '';
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+    
+    <script>
+// --- WAR CARD GAME ---
+(function() {
+    let warBtn, warOverlay, playerScore = 0, aiScore = 0, warActive = false;
+    const cardRanks = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
+    const cardValues = {2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,J:11,Q:12,K:13,A:14};
+    function showWarStatus(msg, color = 'var(--accent)') {
+        if (!warOverlay) {
+            warOverlay = document.createElement('div');
+            warOverlay.id = 'warStatus';
+            warOverlay.style.position = 'fixed';
+            warOverlay.style.top = '20px';
+            warOverlay.style.left = '50%';
+            warOverlay.style.transform = 'translateX(-50%)';
+            warOverlay.style.background = 'rgba(0,0,0,0.85)';
+            warOverlay.style.color = color;
+            warOverlay.style.padding = '16px 32px';
+            warOverlay.style.borderRadius = '12px';
+            warOverlay.style.fontWeight = 'bold';
+            warOverlay.style.fontSize = '1.2rem';
+            warOverlay.style.zIndex = 9999;
+            document.body.appendChild(warOverlay);
+        }
+        warOverlay.innerHTML = msg;
+        warOverlay.style.color = color;
+    }
+    function drawCard() {
+        return cardRanks[Math.floor(Math.random()*cardRanks.length)];
+    }
+    function playRound() {
+        if (!warActive) return;
+        const playerCard = drawCard();
+        const aiCard = drawCard();
+        let msg = `<div style='margin-bottom:10px;'>You: <b>${playerCard}</b> &nbsp; vs &nbsp; AI: <b>${aiCard}</b></div>`;
+        if (cardValues[playerCard] > cardValues[aiCard]) {
+            playerScore++;
+            msg += `<span style='color:var(--success)'>You win the round!</span>`;
+        } else if (cardValues[playerCard] < cardValues[aiCard]) {
+            aiScore++;
+            msg += `<span style='color:var(--danger)'>AI wins the round!</span>`;
+        } else {
+            msg += `<span style='color:var(--warning)'>Tie!</span>`;
+        }
+        msg += `<div style='margin-top:10px;'>Score: You ${playerScore} - ${aiScore} AI</div>`;
+        showWarStatus(msg);
+        if (playerScore >= 10 || aiScore >= 10) {
+            warActive = false;
+            setTimeout(() => {
+                showWarStatus(playerScore > aiScore ? '🎉 You win the war!' : '💥 AI wins the war!', playerScore > aiScore ? 'var(--success)' : 'var(--danger)');
+                warBtn.style.display = '';
+            }, 1200);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Remove all other game overlays/buttons
+        ['gameStatus','memoryStatus','swarmStatus','deployStatus'].forEach(id => { let el = document.getElementById(id); if (el) el.remove(); });
+        document.querySelectorAll('.threat-map button').forEach(btn => btn.remove());
+        // Add War Game button
+        const panel = document.querySelector('.threat-map');
+        warBtn = document.createElement('button');
+        warBtn.textContent = "Start War Game";
+        warBtn.style.position = "absolute";
+        warBtn.style.bottom = "20px";
+        warBtn.style.left = "50%";
+        warBtn.style.transform = "translateX(-50%)";
+        warBtn.style.zIndex = 10;
+        warBtn.style.background = "var(--accent)";
+        warBtn.style.color = "#000";
+        warBtn.style.fontWeight = "bold";
+        warBtn.style.padding = "10px 24px";
+        warBtn.style.border = "none";
+        warBtn.style.borderRadius = "8px";
+        warBtn.style.cursor = "pointer";
+        warBtn.onclick = function(e) {
+            e.stopPropagation();
+            playerScore = 0; aiScore = 0; warActive = true;
+            warBtn.style.display = "none";
+            showWarStatus('Game started! Click anywhere on the map to play a round.');
+        };
+        panel.appendChild(warBtn);
+        // Play round on map click (anywhere except the button)
+        panel.addEventListener('click', function(e) {
+            // If click is on the button or inside the button, ignore
+            if (warBtn.contains(e.target)) return;
+            // --- CLICK EFFECT ---
+            const rect = panel.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const effect = document.createElement('div');
+            effect.style.position = 'absolute';
+            effect.style.left = `${x - 25}px`;
+            effect.style.top = `${y - 25}px`;
+            effect.style.width = '50px';
+            effect.style.height = '50px';
+            effect.style.borderRadius = '50%';
+            effect.style.pointerEvents = 'none';
+            effect.style.background = 'rgba(0,200,150,0.25)';
+            effect.style.boxShadow = '0 0 16px 8px var(--accent)';
+            effect.style.zIndex = 20;
+            effect.style.animation = 'mapClickPulse 0.7s ease-out forwards';
+            panel.appendChild(effect);
+            setTimeout(() => effect.remove(), 700);
+            // --- END CLICK EFFECT ---
+            if (!warActive) return;
+            playRound();
+        });
+        // Add keyframes for the click effect (only once)
+        if (!document.getElementById('mapClickPulseStyle')) {
+            const style = document.createElement('style');
+            style.id = 'mapClickPulseStyle';
+            style.innerHTML = `@keyframes mapClickPulse {
+                0% { opacity: 1; transform: scale(0.7); }
+                70% { opacity: 0.7; transform: scale(1.2); }
+                100% { opacity: 0; transform: scale(2); }
+            }`;
+            document.head.appendChild(style);
+        }
+    });
+})();
+</script>
+</body>
+</html>

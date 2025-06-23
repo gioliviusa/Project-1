@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEGIS | Mobile Defense Command</title>
+    <title>Middle East Conflict Simulator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,1195 +13,1442 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        :root {
-            --primary: #0d2b46;
-            --secondary: #1a4d7c;
-            --accent: #00c896;
-            --dark: #000;
-            --darker: #0a0a0a;
-            --light: #e6f7ff;
-            --danger: #ff4d6d;
-            --warning: #ffb74d;
-            --success: #4ade80;
-            --panel-bg: rgba(20, 20, 30, 0.9);
-        }
-        
         body {
-            background: var(--dark);
-            color: var(--light);
+            background: linear-gradient(135deg, #0c1a29, #0f2b46);
+            color: #e0e0e0;
             min-height: 100vh;
+            padding: 20px;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(40, 40, 60, 0.2) 0px, transparent 1px),
-                radial-gradient(circle at 90% 80%, rgba(40, 40, 60, 0.2) 0px, transparent 1px);
-            background-size: 50px 50px;
         }
         
         .container {
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 15px;
-        }
-        
-        /* Header Styles */
-        header {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px 0;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .logo-icon {
-            background: linear-gradient(135deg, var(--accent), #0077b6);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: white;
-            box-shadow: 0 0 15px rgba(0, 200, 150, 0.5);
-        }
-        
-        .logo-text {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to right, var(--accent), #00e6cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .system-status {
-            background: rgba(0, 200, 150, 0.15);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            box-shadow: 0 0 10px rgba(0, 200, 150, 0.2);
-            width: 100%;
-            justify-content: center;
-        }
-        
-        .system-status.online {
-            color: var(--success);
-        }
-        
-        .system-status.alert {
-            color: var(--warning);
-            background: rgba(255, 183, 77, 0.15);
-            box-shadow: 0 0 10px rgba(255, 183, 77, 0.2);
-        }
-        
-        .system-status.critical {
-            color: var(--danger);
-            background: rgba(255, 77, 109, 0.15);
-            box-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
-            animation: pulse-alert 1.5s infinite;
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .auth-buttons button {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            font-size: 14px;
-        }
-        
-        .auth-buttons button:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 200, 150, 0.4);
-        }
-        
-        /* Dashboard Layout */
-        .dashboard {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
         
-        .panel {
-            background: var(--panel-bg);
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 200, 150, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-        }
-        
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .panel-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* System Status */
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
-        .status-card {
-            background: rgba(29, 77, 125, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .status-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-        
-        .status-card.online::before {
-            background: var(--success);
-        }
-        
-        .status-card.warning::before {
-            background: var(--warning);
-        }
-        
-        .status-card.critical::before {
-            background: var(--danger);
-        }
-        
-        .status-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-        
-        .status-value {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .status-label {
-            font-size: 12px;
-            opacity: 0.8;
+        header {
             text-align: center;
-        }
-        
-        .online { color: var(--success); }
-        .warning { color: var(--warning); }
-        .critical { color: var(--danger); }
-        
-        /* Threat Map */
-        .threat-map {
-            position: relative;
-            height: 300px;
-            background: linear-gradient(160deg, #0a1f36, #0d2b46);
+            padding: 20px;
+            background: rgba(10, 30, 50, 0.7);
             border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 200, 150, 0.2);
+            border: 1px solid #1e5b94;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
         
-        .map-grid {
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #90a4ae;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .game-area {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .map-container {
+            flex: 3;
+            min-width: 300px;
+            background: rgba(10, 30, 50, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #1e5b94;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #4fc3f7;
+            font-size: 1.5rem;
+        }
+        
+        .svg-map-bg {
+            background: rgba(10, 30, 50, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 0;
+            margin-bottom: 10px;
+        }
+        
+        .map-image-container {
+            position: relative;
+            height: 500px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Middle_East_%28orthographic_projection%29.svg/1200px-Middle_East_%28orthographic_projection%29.svg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .country-overlay {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
         }
         
-        .drone {
+        .country-area {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50% 50% 0 50%;
-            background: var(--success);
-            transform: rotate(45deg);
-            box-shadow: 0 0 15px var(--success);
-            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.3;
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
         
-        .drone::before {
-            content: '';
+        .country-area:hover {
+            opacity: 0.7;
+            background: rgba(79, 195, 247, 0.2);
+            border-color: #4fc3f7;
+        }
+        
+        .country-area.selected {
+            opacity: 0.9;
+            background: rgba(183, 28, 28, 0.4);
+            border-color: #ff5252;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .country-label {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            width: 6px;
-            height: 6px;
-            background: var(--dark);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        
+        .bombed-area {
+            position: absolute;
+            background: rgba(255, 82, 82, 0.3);
             border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
         }
         
-        .threat {
+        .border-line {
             position: absolute;
-            width: 16px;
-            height: 16px;
-            background: var(--danger);
-            transform: rotate(45deg);
-            box-shadow: 0 0 15px var(--danger);
-            animation: pulse 1s infinite;
-        }
-        
-        .threat::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            width: 8px;
-            height: 8px;
-            border: 2px solid var(--dark);
-        }
-        
-        .base {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: var(--dark);
-            box-shadow: 0 0 25px rgba(0, 200, 150, 0.7);
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 2;
         }
         
         @keyframes pulse {
-            0% { opacity: 0.7; transform: rotate(45deg) scale(1); }
-            50% { opacity: 1; transform: rotate(45deg) scale(1.1); }
-            100% { opacity: 0.7; transform: rotate(45deg) scale(1); }
+            0% { box-shadow: 0 0 5px rgba(255, 82, 82, 0.7); }
+            50% { box-shadow: 0 0 20px rgba(255, 82, 82, 0.9); }
+            100% { box-shadow: 0 0 5px rgba(255, 82, 82, 0.7); }
         }
         
-        @keyframes pulse-alert {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-        
-        /* Command Panel */
-        .command-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .command-btn {
-            background: rgba(29, 77, 125, 0.3);
-            border: 1px solid rgba(0, 200, 150, 0.3);
-            color: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .command-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-        
-        .command-btn:hover::before {
-            left: 100%;
-        }
-        
-        .command-btn:hover {
-            background: rgba(29, 77, 125, 0.6);
-            transform: translateX(3px);
-            border-color: var(--accent);
-        }
-        
-        .command-icon {
-            font-size: 20px;
-            color: var(--accent);
-            min-width: 25px;
-        }
-        
-        .command-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        /* System Log */
-        .log-container {
-            height: 200px;
-            overflow-y: auto;
-            margin-top: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 8px;
-        }
-        
-        .log-entry {
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            font-size: 12px;
-            display: flex;
-            gap: 8px;
-            animation: fadeIn 0.5s;
-            border-left: 4px solid var(--accent);
-        }
-        
-        .log-time {
-            color: var(--accent);
-            font-weight: 600;
-            min-width: 60px;
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-        }
-        
-        .log-message {
+        .controls-container {
             flex: 1;
-            font-size: 12px;
-        }
-        
-        .log-warning { border-left-color: var(--warning); }
-        .log-critical { border-left-color: var(--danger); }
-        .log-normal { border-left-color: var(--accent); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        /* Footer */
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            padding: 15px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
-            border-top: 1px solid rgba(0, 200, 150, 0.1);
-            position: relative;
-        }
-        
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-            padding: 6px 15px;
-            background: rgba(0, 200, 150, 0.1);
-            border-radius: 20px;
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 12px;
-        }
-        
-        /* Mission Control Section */
-        .mission-control {
+            min-width: 300px;
+            background: rgba(10, 30, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #1e5b94;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
         }
         
-        .mission-panel {
-            background: var(--panel-bg);
-            border-radius: 12px;
+        .budget-panel {
+            background: rgba(15, 40, 65, 0.8);
+            border-radius: 8px;
             padding: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 200, 150, 0.15);
+            border: 1px solid #2a5a8a;
         }
         
-        .mission-title {
-            color: var(--accent);
-            margin-bottom: 12px;
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .loan-btn {
+            background: linear-gradient(145deg, #FFA000, #FF6F00);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 16px;
+            gap: 5px;
         }
         
-        .mission-content {
+        .loan-btn:hover {
+            background: linear-gradient(145deg, #FFB300, #FF8F00);
+            transform: translateY(-2px);
+        }
+        
+        .loan-btn:disabled {
+            background: linear-gradient(145deg, #455a64, #263238);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .budget-display {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .budget-bar {
+            flex: 1;
+            height: 20px;
+            background: #263238;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        
+        .budget-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            width: 100%;
+            transition: width 0.5s ease;
+        }
+        
+        .budget-amount {
+            font-weight: bold;
+            color: #8BC34A;
+        }
+        
+        .panel {
+            background: rgba(15, 40, 65, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #2a5a8a;
+        }
+        
+        .panel-title {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
         
-        .mission-item {
+        .weapons, .units {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .weapon, .unit {
+            background: rgba(25, 55, 85, 0.8);
+            border: 1px solid #3a6a9a;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            position: relative;
+        }
+        
+        .weapon-cost {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .weapon:hover, .unit:hover {
+            background: rgba(35, 75, 115, 0.8);
+            border-color: #4fc3f7;
+        }
+        
+        .weapon.selected, .unit.selected {
+            background: rgba(179, 57, 57, 0.8);
+            border-color: #ff5252;
+        }
+        
+        .weapon.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(25, 55, 85, 0.4);
+        }
+        
+        .unit-controls {
             display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .unit-type {
+            display: flex;
+            align-items: center;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
+            background: rgba(25, 55, 85, 0.8);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #3a6a9a;
         }
         
-        .mission-label {
-            opacity: 0.8;
+        .unit-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .mission-value {
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
+        .unit-cost {
+            font-size: 12px;
+            color: #90a4ae;
+            margin-left: 5px;
         }
         
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 4px;
+        .unit-count {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .progress-fill {
+        .count-btn {
+            width: 30px;
+            height: 30px;
+            background: #2a5a8a;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .count-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .count-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .launch-btn {
+            background: linear-gradient(145deg, #b71c1c, #7f0000);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .launch-btn:hover {
+            background: linear-gradient(145deg, #d32f2f, #9a0007);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .launch-btn:disabled {
+            background: linear-gradient(145deg, #455a64, #263238);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .results-container {
+            background: rgba(10, 30, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #1e5b94;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            min-height: 200px;
+        }
+        
+        .results-title {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .result-content {
+            background: rgba(15, 40, 65, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #2a5a8a;
+            min-height: 150px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .attack-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: var(--accent);
-            border-radius: 3px;
+            pointer-events: none;
+            z-index: 10;
+            display: none;
         }
         
-        /* Authorization Overlay */
-        .auth-overlay {
+        .explosion {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ff9800 0%, #ff5722 40%, #d50000 70%, transparent 100%);
+            border-radius: 50%;
+            animation: explode 1s forwards;
+            box-shadow: 0 0 30px #ff5722;
+        }
+        
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 0.8; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
             justify-content: center;
             align-items: center;
-            z-index: 100;
         }
         
-        .auth-box {
-            background: linear-gradient(145deg, #0a1f36, #0d2b46);
-            border-radius: 15px;
-            padding: 30px;
+        .modal-content {
+            background: linear-gradient(145deg, #0d2842, #1a3a5f);
+            border-radius: 10px;
+            padding: 20px;
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(0, 200, 150, 0.3);
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            text-align: center;
+            max-width: 500px;
+            border: 1px solid #1e5b94;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
         
-        .auth-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-        
-        .auth-input {
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            border-radius: 6px;
-            color: white;
-            font-size: 16px;
-        }
-        
-        .auth-btn {
-            background: var(--accent);
-            color: var(--dark);
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
             border: none;
-            padding: 12px;
-            border-radius: 6px;
+            color: #90a4ae;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-weight: 700;
+        }
+        
+        .loan-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .loan-option {
+            background: rgba(25, 55, 85, 0.8);
+            border: 1px solid #3a6a9a;
+            border-radius: 6px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .loan-option:hover {
+            background: rgba(35, 75, 115, 0.8);
+            border-color: #4fc3f7;
+        }
+        
+        .loan-option.selected {
+            background: rgba(179, 57, 57, 0.8);
+            border-color: #ff5252;
+        }
+        
+        .loan-option h4 {
+            color: #4fc3f7;
+            margin-bottom: 5px;
+        }
+        
+        .loan-option p {
+            font-size: 0.9rem;
+            color: #90a4ae;
+        }
+        
+        .loan-terms {
+            font-size: 0.8rem;
+            color: #90a4ae;
             margin-top: 15px;
-            width: 100%;
-            transition: all 0.3s;
-            font-size: 16px;
+            border-top: 1px solid #2a5a8a;
+            padding-top: 10px;
         }
         
-        .auth-btn:hover {
-            background: #00e6cc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 200, 150, 0.4);
-        }
-        
-        .biometric {
-            margin: 15px 0;
-            font-size: 40px;
-            color: var(--accent);
-        }
-        
-        .security-level {
+        .economic-report {
+            background: rgba(25, 55, 85, 0.8);
+            border-radius: 8px;
+            padding: 15px;
             margin-top: 15px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid #3a6a9a;
         }
         
-        /* Mobile-specific enhancements */
-        @media (min-width: 768px) {
-            .dashboard {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
+        .economic-gain {
+            color: #8BC34A;
+            font-weight: bold;
+        }
+        
+        .economic-loss {
+            color: #F44336;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #90a4ae;
+            font-size: 0.9rem;
+        }
+        
+        #svgCountries path {
+            cursor: pointer;
+            opacity: 0.85;
+            transition: opacity 0.2s, stroke 0.2s, stroke-width 0.2s, filter 0.3s, transform 0.2s;
+        }
+        #svgCountries path:hover {
+            opacity: 1;
+            stroke: #4fc3f7;
+            stroke-width: 5;
+            filter: drop-shadow(0 0 12px #4fc3f7);
+            transform: scale(1.03);
+        }
+        #svgCountries path.selected {
+            opacity: 1;
+            stroke: #ff5252;
+            stroke-width: 7;
+            filter: drop-shadow(0 0 18px #ff5252);
+            transform: scale(1.06);
+        }
+        #svgCountries text {
+            pointer-events: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-shadow: 0 2px 8px #fff8, 0 0 2px #0008;
+        }
+        
+        @media (max-width: 900px) {
+            .svg-map-bg svg { height: 320px !important; }
+        }
+        @media (max-width: 600px) {
+            .svg-map-bg svg { height: 180px !important; }
+        }
+        
+        @media (max-width: 768px) {
+            .game-area {
+                flex-direction: column;
             }
             
-            .threat-map {
+            .map-image-container {
                 height: 400px;
-            }
-            
-            .mission-control {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            
-            .mission-panel {
-                flex: 1;
-                min-width: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="auth-overlay" id="authOverlay">
-        <div class="auth-box">
-            <div class="logo" style="justify-content: center; margin-bottom: 15px;">
-                <div class="logo-icon">
-                    <i class="fas fa-satellite"></i>
-                </div>
-                <div class="logo-text">AEGIS DEFENSE</div>
-            </div>
-            
-            <div class="auth-title">SECURE ACCESS REQUIRED</div>
-            <div class="biometric">
-                <i class="fas fa-fingerprint"></i>
-            </div>
-            <p>Biometric authentication required</p>
-            
-            <input type="password" class="auth-input" placeholder="Authorization Code" id="authCode">
-            
-            <button class="auth-btn" id="authBtn">
-                <i class="fas fa-unlock"></i> GRANT ACCESS
-            </button>
-            
-            <div class="security-level">
-                <i class="fas fa-shield-alt"></i> SECURITY LEVEL: ALPHA
-            </div>
-        </div>
-    </div>
-    
-    <div class="container" id="mainContainer" style="display: none;">
+    <div class="container">
         <header>
-            <div class="header-top">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-satellite"></i>
-                    </div>
-                    <div class="logo-text">AEGIS</div>
-                </div>
-                <div class="auth-buttons">
-                    <button id="loginBtn"><i class="fas fa-fingerprint"></i> LOGIN</button>
-                    <button id="lockBtn"><i class="fas fa-lock"></i> LOCK</button>
-                </div>
-            </div>
-            <div class="system-status online" id="systemStatus">
-                <i class="fas fa-shield-alt"></i>
-                SYSTEM STATUS: OPERATIONAL
-            </div>
+            <h1><i class="fas fa-crosshairs"></i> MIDDLE EAST CONFLICT SIMULATOR</h1>
+            <p class="subtitle">Select a target country, choose your weapons, deploy military units, and execute strategic operations</p>
         </header>
         
-        <main>
-            <div class="dashboard">
-                <!-- System Status Panel -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title"><i class="fas fa-heartbeat"></i> SYSTEM STATUS</h2>
-                        <span class="online"><i class="fas fa-circle"></i> OPERATIONAL</span>
+        <div class="game-area">
+            <div class="map-container">
+                <h2 class="map-title"><i class="fas fa-map-marked-alt"></i> OPERATIONS MAP</h2>
+                <div class="svg-map-bg">
+                    <svg id="middleEastMap" viewBox="0 0 1200 800" style="width:100%; height:500px; display:block;">
+                        <defs>
+                            <radialGradient id="mapBg" cx="50%" cy="50%" r="80%">
+                                <stop offset="0%" stop-color="#e3f2fd"/>
+                                <stop offset="100%" stop-color="#0c1a29"/>
+                            </radialGradient>
+                            <filter id="countryShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.25"/>
+                            </filter>
+                        </defs>
+                        <rect x="0" y="0" width="1200" height="800" fill="url(#mapBg)"/>
+                        <g id="svgCountries">
+                            <path id="Turkey" data-country="Turkey" d="M200,100 L400,100 L400,200 L200,200 Z" fill="#4fc3f7" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Syria" data-country="Syria" d="M420,180 L500,180 L500,250 L420,250 Z" fill="#90caf9" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Iraq" data-country="Iraq" d="M510,200 L600,200 L600,300 L510,300 Z" fill="#b3e5fc" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Iran" data-country="Iran" d="M650,120 L900,120 L900,350 L650,350 Z" fill="#0288d1" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Israel" data-country="Israel" d="M430,260 L450,260 L450,280 L430,280 Z" fill="#b71c1c" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Jordan" data-country="Jordan" d="M460,270 L490,270 L490,300 L460,300 Z" fill="#ffb300" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Saudi Arabia" data-country="Saudi Arabia" d="M510,350 L900,350 L900,700 L510,700 Z" fill="#aed581" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Kuwait" data-country="Kuwait" d="M610,310 L640,310 L640,340 L610,340 Z" fill="#00bcd4" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Lebanon" data-country="Lebanon" d="M420,230 L440,230 L440,250 L420,250 Z" fill="#ab47bc" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Palestine" data-country="Palestine" d="M440,280 L455,280 L455,295 L440,295 Z" fill="#607d8b" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Qatar" data-country="Qatar" d="M850,500 L870,500 L870,520 L850,520 Z" fill="#f44336" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="UAE" data-country="UAE" d="M880,510 L920,510 L920,550 L880,550 Z" fill="#ffd54f" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Egypt" data-country="Egypt" d="M100,250 L400,250 L400,500 L100,500 Z" fill="#26a69a" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Yemen" data-country="Yemen" d="M700,710 L900,710 L900,790 L700,790 Z" fill="#e91e63" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Oman" data-country="Oman" d="M930,560 L1150,560 L1150,790 L930,790 Z" fill="#5c6bc0" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <path id="Bahrain" data-country="Bahrain" d="M875,490 L885,490 L885,500 L875,500 Z" fill="#cddc39" stroke="#fff" stroke-width="3" filter="url(#countryShadow)"/>
+                            <!-- Country labels -->
+                            <text x="300" y="190" font-size="28" fill="#0c1a29" font-weight="bold">Turkey</text>
+                            <text x="440" y="240" font-size="22" fill="#0c1a29">Syria</text>
+                            <text x="540" y="270" font-size="22" fill="#0c1a29">Iraq</text>
+                            <text x="800" y="200" font-size="28" fill="#0c1a29">Iran</text>
+                            <text x="435" y="275" font-size="16" fill="#0c1a29">Israel</text>
+                            <text x="470" y="295" font-size="16" fill="#0c1a29">Jordan</text>
+                            <text x="700" y="600" font-size="28" fill="#0c1a29">Saudi Arabia</text>
+                            <text x="615" y="335" font-size="14" fill="#0c1a29">Kuwait</text>
+                            <text x="425" y="245" font-size="14" fill="#0c1a29">Lebanon</text>
+                            <text x="445" y="290" font-size="14" fill="#0c1a29">Palestine</text>
+                            <text x="855" y="515" font-size="14" fill="#0c1a29">Qatar</text>
+                            <text x="890" y="540" font-size="14" fill="#0c1a29">UAE</text>
+                            <text x="200" y="400" font-size="28" fill="#0c1a29">Egypt</text>
+                            <text x="800" y="770" font-size="18" fill="#0c1a29">Yemen</text>
+                            <text x="1000" y="770" font-size="18" fill="#0c1a29">Oman</text>
+                            <text x="880" y="495" font-size="12" fill="#0c1a29">Bahrain</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="attack-animation" id="attackAnimation"></div>
+            </div>
+            
+            <div class="controls-container">
+                <div class="budget-panel">
+                    <div class="budget-header">
+                        <h3 class="panel-title"><i class="fas fa-coins"></i> MILITARY BUDGET</h3>
+                        <button class="loan-btn" id="loanBtn">
+                            <i class="fas fa-hand-holding-usd"></i> Get Loan
+                        </button>
                     </div>
-                    <div class="status-grid">
-                        <div class="status-card online">
-                            <div class="status-icon online">
+                    <div class="budget-display">
+                        <span>$</span>
+                        <div class="budget-bar">
+                            <div class="budget-progress" id="budgetBar"></div>
+                        </div>
+                        <span class="budget-amount" id="budgetAmount">10,000M</span>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h3 class="panel-title"><i class="fas fa-bomb"></i> SELECT WEAPON</h3>
+                    <div class="weapons">
+                        <div class="weapon" data-weapon="drone" data-cost="50">
+                            <span class="weapon-cost">$50M</span>
+                            <i class="fas fa-drone-alt"></i> Drone Strike
+                        </div>
+                        <div class="weapon" data-weapon="conventional" data-cost="100">
+                            <span class="weapon-cost">$100M</span>
+                            <i class="fas fa-meteor"></i> Conventional
+                        </div>
+                        <div class="weapon" data-weapon="bunker" data-cost="250">
+                            <span class="weapon-cost">$250M</span>
+                            <i class="fas fa-mountain"></i> Bunker Buster
+                        </div>
+                        <div class="weapon" data-weapon="thermobaric" data-cost="400">
+                            <span class="weapon-cost">$400M</span>
+                            <i class="fas fa-fire"></i> Thermobaric
+                        </div>
+                        <div class="weapon" data-weapon="nuclear" data-cost="2000">
+                            <span class="weapon-cost">$2,000M</span>
+                            <i class="fas fa-radiation"></i> Nuclear
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h3 class="panel-title"><i class="fas fa-fighter-jet"></i> DEPLOY UNITS</h3>
+                    <div class="unit-controls">
+                        <div class="unit-type">
+                            <div class="unit-info">
                                 <i class="fas fa-fighter-jet"></i>
+                                <span>Fighter Jets <span class="unit-cost">($150M each)</span></span>
                             </div>
-                            <div class="status-value online">28</div>
-                            <div class="status-label">ACTIVE DRONES</div>
-                        </div>
-                        <div class="status-card warning">
-                            <div class="status-icon warning">
-                                <i class="fas fa-radar"></i>
+                            <div class="unit-count">
+                                <button class="count-btn minus" data-unit="aircraft">-</button>
+                                <span class="count-value" id="aircraft-count">0</span>
+                                <button class="count-btn plus" data-unit="aircraft">+</button>
                             </div>
-                            <div class="status-value warning">4</div>
-                            <div class="status-label">DETECTED THREATS</div>
                         </div>
-                        <div class="status-card online">
-                            <div class="status-icon online">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <div class="status-value online">99.7%</div>
-                            <div class="status-label">NETWORK STABILITY</div>
-                        </div>
-                        <div class="status-card critical">
-                            <div class="status-icon critical">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="status-value critical">2</div>
-                            <div class="status-label">CRITICAL ALERTS</div>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-header" style="margin-top: 15px;">
-                        <h2 class="panel-title"><i class="fas fa-plane"></i> ACTIVE SYSTEMS</h2>
-                    </div>
-                    <div class="status-grid">
-                        <div class="status-card online">
-                            <div class="status-icon online">
-                                <i class="fas fa-jet-fighter"></i>
-                            </div>
-                            <div class="status-value">REAPER-7</div>
-                            <div class="status-label">SECTOR 4</div>
-                        </div>
-                        <div class="status-card online">
-                            <div class="status-icon online">
-                                <i class="fas fa-helicopter"></i>
-                            </div>
-                            <div class="status-value">GUARDIAN-12</div>
-                            <div class="status-label">ZONE ALPHA</div>
-                        </div>
-                        <div class="status-card online">
-                            <div class="status-icon online">
+                        
+                        <div class="unit-type">
+                            <div class="unit-info">
                                 <i class="fas fa-ship"></i>
+                                <span>Warships <span class="unit-cost">($300M each)</span></span>
                             </div>
-                            <div class="status-value">VANGUARD-3</div>
-                            <div class="status-label">COASTAL DEF</div>
+                            <div class="unit-count">
+                                <button class="count-btn minus" data-unit="ships">-</button>
+                                <span class="count-value" id="ships-count">0</span>
+                                <button class="count-btn plus" data-unit="ships">+</button>
+                            </div>
                         </div>
-                        <div class="status-card warning">
-                            <div class="status-icon warning">
-                                <i class="fas fa-robot"></i>
+                        
+                        <div class="unit-type">
+                            <div class="unit-info">
+                                <i class="fas fa-submarine"></i>
+                                <span>Submarines <span class="unit-cost">($500M each)</span></span>
                             </div>
-                            <div class="status-value">SENTINEL-9</div>
-                            <div class="status-label">MAINTENANCE</div>
+                            <div class="unit-count">
+                                <button class="count-btn minus" data-unit="submarines">-</button>
+                                <span class="count-value" id="submarines-count">0</span>
+                                <button class="count-btn plus" data-unit="submarines">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="unit-type">
+                            <div class="unit-info">
+                                <i class="fas fa-drone-alt"></i>
+                                <span>Drone Squadrons <span class="unit-cost">($75M each)</span></span>
+                            </div>
+                            <div class="unit-count">
+                                <button class="count-btn minus" data-unit="drones">-</button>
+                                <span class="count-value" id="drones-count">0</span>
+                                <button class="count-btn plus" data-unit="drones">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Threat Map Panel -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title"><i class="fas fa-map"></i> THREAT MAP</h2>
-                        <span class="warning"><i class="fas fa-triangle-exclamation"></i> 4 THREATS</span>
-                    </div>
-                    <div class="threat-map">
-                        <div class="map-grid"></div>
-                        <div class="base">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <!-- Drones and threats will be added here by JS -->
-                    </div>
+                <button id="launchBtn" class="launch-btn" disabled>
+                    <i class="fas fa-rocket"></i> LAUNCH OPERATION
+                </button>
+            </div>
+        </div>
+        
+        <div class="results-container">
+            <h3 class="results-title"><i class="fas fa-clipboard-list"></i> OPERATION RESULTS</h3>
+            <div class="result-content" id="resultContent">
+                <p>Select a target country, weapon type, and deploy units to begin simulation.</p>
+                <p>Operation results will appear here after launch.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is a simulation for educational purposes only. No actual military operations are being conducted.</p>
+            <p>© 2023 Middle East Conflict Simulator | All actions in this simulation are fictional</p>
+        </div>
+    </div>
+
+    <!-- Loan Modal -->
+    <div class="modal" id="loanModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3><i class="fas fa-hand-holding-usd"></i> US MILITARY LOAN PROGRAM</h3>
+            <p>Apply for military aid from the United States to fund your operations.</p>
+            
+            <div class="loan-options">
+                <div class="loan-option" data-amount="2000" data-interest="10">
+                    <h4>Small Military Aid Package</h4>
+                    <p>$2,000M at 10% interest</p>
                 </div>
-                
-                <!-- Command Panel -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title"><i class="fas fa-terminal"></i> COMMAND CENTER</h2>
-                        <span class="online"><i class="fas fa-key"></i> SECURE</span>
-                    </div>
-                    <div class="command-list">
-                        <div class="command-btn">
-                            <div class="command-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <div class="command-text">ACTIVATE DEFENSE</div>
-                        </div>
-                        <div class="command-btn">
-                            <div class="command-icon">
-                                <i class="fas fa-satellite"></i>
-                            </div>
-                            <div class="command-text">INITIATE SURVEILLANCE</div>
-                        </div>
-                        <div class="command-btn">
-                            <div class="command-icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <div class="command-text">UPDATE NETWORK</div>
-                        </div>
-                        <div class="command-btn">
-                            <div class="command-icon">
-                                <i class="fas fa-user-shield"></i>
-                            </div>
-                            <div class="command-text">ENGAGE COUNTERMEASURES</div>
-                        </div>
-                        <div class="command-btn">
-                            <div class="command-icon">
-                                <i class="fas fa-microchip"></i>
-                            </div>
-                            <div class="command-text">RUN DIAGNOSTICS</div>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-header" style="margin-top: 15px;">
-                        <h2 class="panel-title"><i class="fas fa-clipboard-list"></i> SYSTEM LOG</h2>
-                        <span><i class="fas fa-clock"></i> REAL-TIME</span>
-                    </div>
-                    <div class="log-container" id="logContainer">
-                        <!-- Logs will be added here by JS -->
-                    </div>
+                <div class="loan-option" data-amount="5000" data-interest="15">
+                    <h4>Standard Defense Loan</h4>
+                    <p>$5,000M at 15% interest</p>
+                </div>
+                <div class="loan-option" data-amount="10000" data-interest="20">
+                    <h4>Major Arms Deal</h4>
+                    <p>$10,000M at 20% interest</p>
                 </div>
             </div>
             
-            <!-- Mission Control Section -->
-            <div class="mission-control">
-                <div class="mission-panel">
-                    <h3 class="mission-title"><i class="fas fa-crosshairs"></i> ACTIVE MISSIONS</h3>
-                    <div class="mission-content">
-                        <div class="mission-item">
-                            <div class="mission-label">OPERATION SHIELD</div>
-                            <div class="mission-value online">ACTIVE</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">OPERATION SENTRY</div>
-                            <div class="mission-value online">ACTIVE</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">OPERATION HORIZON</div>
-                            <div class="mission-value warning">PAUSED</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">OPERATION VIGILANCE</div>
-                            <div class="mission-value critical">ABORTED</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mission-panel">
-                    <h3 class="mission-title"><i class="fas fa-battery-full"></i> RESOURCE STATUS</h3>
-                    <div class="mission-content">
-                        <div class="mission-item">
-                            <div class="mission-label">POWER CAPACITY</div>
-                            <div class="mission-value online">94%</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 94%"></div>
-                        </div>
-                        
-                        <div class="mission-item">
-                            <div class="mission-label">COMMUNICATIONS</div>
-                            <div class="mission-value online">100%</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 100%"></div>
-                        </div>
-                        
-                        <div class="mission-item">
-                            <div class="mission-label">WEAPONS SYSTEMS</div>
-                            <div class="mission-value warning">87%</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 87%"></div>
-                        </div>
-                        
-                        <div class="mission-item">
-                            <div class="mission-label">SENSOR ARRAY</div>
-                            <div class="mission-value critical">63%</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 63%"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mission-panel">
-                    <h3 class="mission-title"><i class="fas fa-user-secret"></i> PERSONNEL</h3>
-                    <div class="mission-content">
-                        <div class="mission-item">
-                            <div class="mission-label">ACTIVE OPERATORS</div>
-                            <div class="mission-value">12</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">ON DUTY</div>
-                            <div class="mission-value">8</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">SECURITY CLEARANCE</div>
-                            <div class="mission-value">LEVEL 5</div>
-                        </div>
-                        <div class="mission-item">
-                            <div class="mission-label">LAST ACTIVITY</div>
-                            <div class="mission-value">00:03:12</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="loan-terms">
+                <p><strong>Terms:</strong> Loans must be repaid after 5 operations. Higher interest rates apply for larger loans.</p>
+                <p><strong>Current debt:</strong> $<span id="currentDebt">0</span>M</p>
             </div>
-        </main>
-        
-        <footer>
-            <p>AEGIS DEFENSE SYSTEM | CLASSIFIED: TOP SECRET | AUTHORIZED PERSONNEL ONLY</p>
-            <div class="security-badge">
-                <i class="fas fa-lock"></i>
-                <span>ENCRYPTED: AES-256 SECURE CHANNEL ACTIVE</span>
-            </div>
-        </footer>
+            
+            <button id="acceptLoanBtn" class="launch-btn" style="margin-top: 15px;">
+                <i class="fas fa-file-signature"></i> Accept Loan Terms
+            </button>
+        </div>
     </div>
 
     <script>
-        // Generate random drones and threats on the map
-        function generateMapElements() {
-            const threatMap = document.querySelector('.threat-map');
-            
-            // Clear existing elements
-            document.querySelectorAll('.drone, .threat').forEach(el => el.remove());
-            
-            // Generate friendly drones
-            for (let i = 0; i < 10; i++) {
-                const drone = document.createElement('div');
-                drone.className = 'drone';
-                drone.style.left = `${5 + Math.random() * 90}%`;
-                drone.style.top = `${5 + Math.random() * 85}%`;
-                threatMap.appendChild(drone);
-            }
-            
-            // Generate threats
-            for (let i = 0; i < 4; i++) {
-                const threat = document.createElement('div');
-                threat.className = 'threat';
-                threat.style.left = `${15 + Math.random() * 70}%`;
-                threat.style.top = `${15 + Math.random() * 70}%`;
-                threatMap.appendChild(threat);
-            }
-        }
+        // Game state
+        const state = {
+            selectedCountry: null,
+            selectedWeapon: null,
+            budget: 10000, // in millions
+            units: {
+                aircraft: 0,
+                ships: 0,
+                submarines: 0,
+                drones: 0
+            },
+            unitCosts: {
+                aircraft: 150,
+                ships: 300,
+                submarines: 500,
+                drones: 75
+            },
+            totalOperations: 0,
+            bombedAreas: [],
+            debt: 0,
+            operationsSinceLoan: 0,
+            loanActive: false,
+            controlledCountries: []
+        };
         
-        // Generate system log entries
-        function generateLogEntry() {
-            const logs = [
-                {type: 'normal', msg: 'System diagnostics completed. All systems nominal.'},
-                {type: 'normal', msg: 'Drone Guardian-12 entered surveillance zone Delta.'},
-                {type: 'warning', msg: 'Unidentified signature detected in sector 7.'},
-                {type: 'critical', msg: 'Thermal signature detected approaching perimeter!'},
-                {type: 'normal', msg: 'Countermeasure systems armed and ready.'},
-                {type: 'warning', msg: 'Communication latency detected with Sentinel-9.'},
-                {type: 'normal', msg: 'Updated flight paths uploaded to Reaper squadron.'},
-                {type: 'critical', msg: 'ALERT: Multiple signatures detected in restricted airspace!'},
-                {type: 'normal', msg: 'Vanguard-3 coastal patrol completed successfully.'},
-                {type: 'warning', msg: 'Weather conditions deteriorating in sector 5.'},
-                {type: 'normal', msg: 'New intelligence data received and processed.'},
-                {type: 'critical', msg: 'SECURITY BREACH DETECTED IN SUBSYSTEM 4!'}
-            ];
-            
-            const randomLog = logs[Math.floor(Math.random() * logs.length)];
-            const now = new Date();
-            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-            
-            const logEntry = document.createElement('div');
-            logEntry.className = `log-entry log-${randomLog.type}`;
-            logEntry.innerHTML = `
-                <div class="log-time">${time}</div>
-                <div class="log-message">${randomLog.msg}</div>
-            `;
-            
-            const container = document.getElementById('logContainer');
-            container.prepend(logEntry);
-            
-            // Keep only the latest 10 logs
-            if (container.children.length > 10) {
-                container.removeChild(container.lastChild);
-            }
-        }
+        // DOM elements
+        const countryOverlay = document.getElementById('countryOverlay');
+        const weapons = document.querySelectorAll('.weapon');
+        const minusBtns = document.querySelectorAll('.minus');
+        const plusBtns = document.querySelectorAll('.plus');
+        const countValues = {
+            aircraft: document.getElementById('aircraft-count'),
+            ships: document.getElementById('ships-count'),
+            submarines: document.getElementById('submarines-count'),
+            drones: document.getElementById('drones-count')
+        };
+        const launchBtn = document.getElementById('launchBtn');
+        const resultContent = document.getElementById('resultContent');
+        const attackAnimation = document.getElementById('attackAnimation');
+        const budgetBar = document.getElementById('budgetBar');
+        const budgetAmount = document.getElementById('budgetAmount');
+        const mapContainer = document.querySelector('.map-image-container');
+        const loanBtn = document.getElementById('loanBtn');
+        const loanModal = document.getElementById('loanModal');
+        const closeModal = document.getElementById('closeModal');
+        const loanOptions = document.querySelectorAll('.loan-option');
+        const acceptLoanBtn = document.getElementById('acceptLoanBtn');
+        const currentDebtDisplay = document.getElementById('currentDebt');
         
-        // Simulate system status updates
-        function updateSystemStatus() {
-            const activeDrones = document.querySelectorAll('.status-value')[0];
-            const detectedThreats = document.querySelectorAll('.status-value')[1];
-            const statusIndicator = document.querySelector('.system-status');
-            
-            // Random fluctuations for demo
-            const droneCount = 28 + Math.floor(Math.random() * 3) - 1;
-            const threatCount = 4 + Math.floor(Math.random() * 3) - 1;
-            
-            activeDrones.textContent = droneCount;
-            detectedThreats.textContent = threatCount;
-            
-            // Update status color based on threat level
-            const threatStatus = document.querySelector('.status-icon:nth-child(5)');
-            if (threatCount > 5) {
-                threatStatus.className = 'status-icon critical';
-                detectedThreats.className = 'status-value critical';
-                statusIndicator.className = 'system-status critical';
-                statusIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i> SYSTEM STATUS: CRITICAL THREAT';
-            } else if (threatCount > 3) {
-                threatStatus.className = 'status-icon warning';
-                detectedThreats.className = 'status-value warning';
-                statusIndicator.className = 'system-status alert';
-                statusIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYSTEM STATUS: ELEVATED THREAT';
-            } else {
-                threatStatus.className = 'status-icon online';
-                detectedThreats.className = 'status-value online';
-                statusIndicator.className = 'system-status online';
-                statusIndicator.innerHTML = '<i class="fas fa-shield-alt"></i> SYSTEM STATUS: OPERATIONAL';
+        // Country positions and border definitions
+        const countryData = {
+            'Turkey': { 
+                left: '5%', top: '5%', width: '15%', height: '15%',
+                borders: [
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Industry', 'Agriculture', 'Tourism'],
+                baseValue: 800
+            },
+            'Syria': { 
+                left: '25%', top: '20%', width: '10%', height: '10%',
+                borders: [
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Agriculture'],
+                baseValue: 300
+            },
+            'Iraq': { 
+                left: '35%', top: '25%', width: '15%', height: '15%',
+                borders: [
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Gas'],
+                baseValue: 600
+            },
+            'Iran': { 
+                left: '50%', top: '15%', width: '20%', height: '20%',
+                borders: [
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Gas', 'Minerals'],
+                baseValue: 1200
+            },
+            'Israel': { 
+                left: '25%', top: '30%', width: '8%', height: '8%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Technology', 'Diamonds', 'Pharmaceuticals'],
+                baseValue: 1000
+            },
+            'Jordan': { 
+                left: '30%', top: '30%', width: '10%', height: '10%',
+                borders: [
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Phosphates', 'Potash'],
+                baseValue: 400
+            },
+            'Saudi Arabia': { 
+                left: '35%', top: '45%', width: '25%', height: '25%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Gas'],
+                baseValue: 2000
+            },
+            'Kuwait': { 
+                left: '45%', top: '30%', width: '8%', height: '8%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Petrochemicals'],
+                baseValue: 500
+            },
+            'Lebanon': { 
+                left: '25%', top: '25%', width: '8%', height: '8%',
+                borders: [
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Banking', 'Tourism'],
+                baseValue: 350
+            },
+            'Palestine': { 
+                left: '25%', top: '30%', width: '8%', height: '8%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Agriculture', 'Textiles'],
+                baseValue: 200
+            },
+            'Qatar': { 
+                left: '50%', top: '40%', width: '6%', height: '6%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Gas', 'Oil'],
+                baseValue: 600
+            },
+            'UAE': { 
+                left: '55%', top: '40%', width: '8%', height: '8%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Tourism', 'Finance'],
+                baseValue: 900
+            },
+            'Egypt': { 
+                left: '15%', top: '35%', width: '15%', height: '15%',
+                borders: [
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Suez Canal', 'Tourism', 'Agriculture'],
+                baseValue: 700
+            },
+            'Yemen': { 
+                left: '45%', top: '65%', width: '15%', height: '15%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Coffee'],
+                baseValue: 250
+            },
+            'Oman': { 
+                left: '65%', top: '45%', width: '12%', height: '12%',
+                borders: [
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Oil', 'Gas'],
+                baseValue: 450
+            },
+            'Bahrain': { 
+                left: '48%', top: '35%', width: '4%', height: '4%',
+                borders: [
+                    { type: 'top', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'right', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'bottom', start: '0%', end: '100%', thickness: '2px', length: '100%' },
+                    { type: 'left', start: '0%', end: '100%', thickness: '2px', length: '100%' }
+                ],
+                resources: ['Banking', 'Oil'],
+                baseValue: 300
             }
-        }
-        
-        // Initialize the system
-        document.addEventListener('DOMContentLoaded', function() {
-            // Authentication
-            document.getElementById('authBtn').addEventListener('click', function() {
-                const code = document.getElementById('authCode').value;
-                if (code === 'AEGIS-ALPHA') {
-                    document.getElementById('authOverlay').style.display = 'none';
-                    document.getElementById('mainContainer').style.display = 'block';
-                    
-                    // Generate initial map
-                    generateMapElements();
-                    
-                    // Generate initial logs
-                    for (let i = 0; i < 6; i++) {
-                        setTimeout(() => generateLogEntry(), i * 300);
-                    }
-                    
-                    // Update system every 5 seconds
-                    setInterval(updateSystemStatus, 5000);
-                    
-                    // Add new log every 3-8 seconds
-                    setInterval(generateLogEntry, 3000 + Math.random() * 5000);
-                    
-                    // Regenerate map every 10 seconds
-                    setInterval(generateMapElements, 10000);
-                } else {
-                    alert('INVALID AUTHORIZATION CODE\nACCESS DENIED');
-                }
-            });
-            
-            // Add button functionality
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                document.getElementById('authOverlay').style.display = 'flex';
-                document.getElementById('mainContainer').style.display = 'none';
-            });
-            
-            document.getElementById('lockBtn').addEventListener('click', function() {
-                alert('SYSTEM LOCK INITIATED: All controls disabled. Defense systems remain active.');
-                document.querySelector('.system-status').className = 'system-status critical';
-                document.querySelector('.system-status').innerHTML = '<i class="fas fa-lock"></i> SYSTEM LOCKED: AWAITING AUTHORIZATION';
-            });
-            
-            // Add command button functionality
-            document.querySelectorAll('.command-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const command = this.querySelector('.command-text').textContent;
-                    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    
-                    // Add log entry
-                    const logEntry = document.createElement('div');
-                    logEntry.className = 'log-entry log-normal';
-                    logEntry.innerHTML = `
-                        <div class="log-time">${time}</div>
-                        <div class="log-message">Command issued: ${command}</div>
-                    `;
-                    
-                    const container = document.getElementById('logContainer');
-                    container.prepend(logEntry);
-                    
-                    // Keep only the latest 10 logs
-                    if (container.children.length > 10) {
-                        container.removeChild(container.lastChild);
-                    }
-                    
-                    // Visual feedback
-                    this.style.background = 'rgba(0, 200, 150, 0.3)';
-                    this.style.borderColor = 'var(--accent)';
-                    setTimeout(() => {
-                        this.style.background = '';
-                        this.style.borderColor = '';
-                    }, 1000);
+        };
+
+        // Create country overlay elements with border lines
+        function createCountryOverlays() {
+            // Remove old overlays if any
+            if (countryOverlay) countryOverlay.innerHTML = '';
+            // SVG countries are now interactive
+            const svgCountries = document.querySelectorAll('#svgCountries path');
+            svgCountries.forEach(path => {
+                path.addEventListener('click', () => {
+                    svgCountries.forEach(p => p.classList.remove('selected'));
+                    path.classList.add('selected');
+                    state.selectedCountry = path.dataset.country;
+                    updateLaunchButton();
+                });
+                // Tooltip on hover
+                path.addEventListener('mouseenter', (e) => {
+                    const label = document.createElement('div');
+                    label.className = 'country-label';
+                    label.textContent = path.dataset.country;
+                    label.style.position = 'fixed';
+                    label.style.left = e.clientX + 10 + 'px';
+                    label.style.top = e.clientY - 10 + 'px';
+                    label.style.zIndex = 1000;
+                    label.id = 'svg-country-tooltip';
+                    document.body.appendChild(label);
+                });
+                path.addEventListener('mouseleave', () => {
+                    const label = document.getElementById('svg-country-tooltip');
+                    if (label) label.remove();
                 });
             });
+        }
+        
+        // Initialize the game
+        function initGame() {
+            createCountryOverlays();
+            updateBudgetDisplay();
+            updateWeaponAvailability();
+            updateDebtDisplay();
+        }
+        
+        // Update budget display
+        function updateBudgetDisplay() {
+            const percentage = (state.budget / 10000) * 100;
+            budgetBar.style.width = `${percentage}%`;
+            budgetAmount.textContent = `${state.budget.toLocaleString()}M`;
+            
+            // Change color based on budget level
+            if (percentage < 20) {
+                budgetBar.style.background = 'linear-gradient(90deg, #F44336, #E91E63)';
+            } else if (percentage < 50) {
+                budgetBar.style.background = 'linear-gradient(90deg, #FF9800, #FF5722)';
+            } else {
+                budgetBar.style.background = 'linear-gradient(90deg, #4CAF50, #8BC34A)';
+            }
+            
+            // Enable/disable loan button
+            loanBtn.disabled = state.loanActive;
+        }
+        
+        // Update debt display
+        function updateDebtDisplay() {
+            currentDebtDisplay.textContent = state.debt.toLocaleString();
+        }
+        
+        // Update weapon availability based on budget
+        function updateWeaponAvailability() {
+            weapons.forEach(weapon => {
+                const cost = parseInt(weapon.dataset.cost);
+                if (cost > state.budget) {
+                    weapon.classList.add('disabled');
+                } else {
+                    weapon.classList.remove('disabled');
+                }
+            });
+        }
+        
+        // Update launch button state
+        function updateLaunchButton() {
+            const isReady = state.selectedCountry && state.selectedWeapon && 
+                           (state.units.aircraft > 0 || state.units.ships > 0 || 
+                            state.units.submarines > 0 || state.units.drones > 0);
+            
+            launchBtn.disabled = !isReady;
+        }
+        
+        // Loan modal functions
+        loanBtn.addEventListener('click', () => {
+            loanModal.style.display = 'flex';
         });
-    </script>
-    
-    <script>
-// --- WAR CARD GAME ---
-(function() {
-    let warBtn, warOverlay, playerScore = 0, aiScore = 0, warActive = false;
-    const cardRanks = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
-    const cardValues = {2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10,J:11,Q:12,K:13,A:14};
-    function showWarStatus(msg, color = 'var(--accent)') {
-        if (!warOverlay) {
-            warOverlay = document.createElement('div');
-            warOverlay.id = 'warStatus';
-            warOverlay.style.position = 'fixed';
-            warOverlay.style.top = '20px';
-            warOverlay.style.left = '50%';
-            warOverlay.style.transform = 'translateX(-50%)';
-            warOverlay.style.background = 'rgba(0,0,0,0.85)';
-            warOverlay.style.color = color;
-            warOverlay.style.padding = '16px 32px';
-            warOverlay.style.borderRadius = '12px';
-            warOverlay.style.fontWeight = 'bold';
-            warOverlay.style.fontSize = '1.2rem';
-            warOverlay.style.zIndex = 9999;
-            document.body.appendChild(warOverlay);
+        
+        closeModal.addEventListener('click', () => {
+            loanModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === loanModal) {
+                loanModal.style.display = 'none';
+            }
+        });
+        
+        let selectedLoan = null;
+        
+        loanOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                loanOptions.forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedLoan = {
+                    amount: parseInt(option.dataset.amount),
+                    interest: parseInt(option.dataset.interest)
+                };
+            });
+        });
+        
+        acceptLoanBtn.addEventListener('click', () => {
+            if (selectedLoan) {
+                state.budget += selectedLoan.amount;
+                state.debt += Math.floor(selectedLoan.amount * (1 + selectedLoan.interest / 100));
+                state.loanActive = true;
+                state.operationsSinceLoan = 0;
+                
+                updateBudgetDisplay();
+                updateDebtDisplay();
+                updateWeaponAvailability();
+                loanModal.style.display = 'none';
+                
+                // Show loan notification
+                resultContent.innerHTML = `
+                    <h4>LOAN APPROVED</h4>
+                    <p>You have received $${selectedLoan.amount.toLocaleString()}M in military aid from the United States.</p>
+                    <p>Total debt to repay: $${state.debt.toLocaleString()}M after 5 operations.</p>
+                    <p style="margin-top: 15px; font-style: italic; border-top: 1px solid #2a5a8a; padding-top: 10px;">
+                        Current budget: $${state.budget.toLocaleString()}M
+                    </p>
+                `;
+            }
+        });
+        
+        // Calculate economic gains from controlled countries
+        function calculateEconomicGains() {
+            let totalGain = 0;
+            let economicReport = '<div class="economic-report"><h4>ECONOMIC GAINS</h4><ul>';
+            
+            state.controlledCountries.forEach(country => {
+                const countryInfo = countryData[country];
+                let countryGain = countryInfo.baseValue;
+                
+                // Random fluctuation
+                countryGain *= 0.8 + Math.random() * 0.4;
+                countryGain = Math.floor(countryGain);
+                
+                economicReport += `<li>${country}: $${countryGain.toLocaleString()}M from ${countryInfo.resources.join(', ')}</li>`;
+                totalGain += countryGain;
+            });
+            
+            economicReport += `</ul><p>Total economic gain: <span class="economic-gain">$${totalGain.toLocaleString()}M</span></p></div>`;
+            
+            return {
+                totalGain,
+                economicReport
+            };
         }
-        warOverlay.innerHTML = msg;
-        warOverlay.style.color = color;
-    }
-    function drawCard() {
-        return cardRanks[Math.floor(Math.random()*cardRanks.length)];
-    }
-    function playRound() {
-        if (!warActive) return;
-        const playerCard = drawCard();
-        const aiCard = drawCard();
-        let msg = `<div style='margin-bottom:10px;'>You: <b>${playerCard}</b> &nbsp; vs &nbsp; AI: <b>${aiCard}</b></div>`;
-        if (cardValues[playerCard] > cardValues[aiCard]) {
-            playerScore++;
-            msg += `<span style='color:var(--success)'>You win the round!</span>`;
-        } else if (cardValues[playerCard] < cardValues[aiCard]) {
-            aiScore++;
-            msg += `<span style='color:var(--danger)'>AI wins the round!</span>`;
-        } else {
-            msg += `<span style='color:var(--warning)'>Tie!</span>`;
+        
+        // Repay loan
+        function repayLoan() {
+            if (state.budget >= state.debt) {
+                state.budget -= state.debt;
+                resultContent.innerHTML += `
+                    <p style="color: #ff9800; margin-top: 10px;">
+                        <strong>DEBT REPAID:</strong> $${state.debt.toLocaleString()}M has been deducted from your budget to repay the US loan.
+                    </p>
+                `;
+            } else {
+                // If can't repay, deduct remaining budget and set debt to remaining amount
+                state.debt -= state.budget;
+                state.budget = 0;
+                resultContent.innerHTML += `
+                    <p style="color: #f44336; margin-top: 10px;">
+                        <strong>PARTIAL DEBT REPAYMENT:</strong> You couldn't fully repay your debt. Remaining debt: $${state.debt.toLocaleString()}M.
+                    </p>
+                `;
+            }
+            
+            state.loanActive = false;
+            state.debt = 0;
+            updateBudgetDisplay();
+            updateDebtDisplay();
         }
-        msg += `<div style='margin-top:10px;'>Score: You ${playerScore} - ${aiScore} AI</div>`;
-        showWarStatus(msg);
-        if (playerScore >= 10 || aiScore >= 10) {
-            warActive = false;
+        
+        // Launch operation
+        function launchOperation() {
+            if (launchBtn.disabled) return;
+            
+            // Calculate operation cost
+            const weaponCost = parseInt(document.querySelector('.weapon.selected').dataset.cost);
+            const operationCost = weaponCost + 
+                                (state.units.aircraft * state.unitCosts.aircraft) +
+                                (state.units.ships * state.unitCosts.ships) +
+                                (state.units.submarines * state.unitCosts.submarines) +
+                                (state.units.drones * state.unitCosts.drones);
+            
+            // Deduct cost from budget
+            state.budget -= operationCost;
+            if (state.loanActive) {
+                state.operationsSinceLoan++;
+                if (state.operationsSinceLoan >= 5) {
+                    repayLoan();
+                }
+            }
+            
+            updateBudgetDisplay();
+            updateWeaponAvailability();
+            
+            // Show explosion animation and mark bombed area
+            showExplosionAnimation();
+            markBombedArea();
+            
+            // Calculate operation results
             setTimeout(() => {
-                showWarStatus(playerScore > aiScore ? '🎉 You win the war!' : '💥 AI wins the war!', playerScore > aiScore ? 'var(--success)' : 'var(--danger)');
-                warBtn.style.display = '';
-            }, 1200);
+                const result = calculateResults();
+                
+                // Check if we've conquered this country
+                if (result.successLevel === "Success" || result.successLevel === "Overwhelming Success") {
+                    if (!state.controlledCountries.includes(state.selectedCountry)) {
+                        state.controlledCountries.push(state.selectedCountry);
+                    }
+                }
+                
+                // Calculate economic gains
+                const { totalGain, economicReport } = calculateEconomicGains();
+                state.budget += totalGain;
+                updateBudgetDisplay();
+                
+                displayResults(result, economicReport);
+                state.totalOperations++;
+            }, 1500);
         }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        // Remove all other game overlays/buttons
-        ['gameStatus','memoryStatus','swarmStatus','deployStatus'].forEach(id => { let el = document.getElementById(id); if (el) el.remove(); });
-        document.querySelectorAll('.threat-map button').forEach(btn => btn.remove());
-        // Add War Game button
-        const panel = document.querySelector('.threat-map');
-        warBtn = document.createElement('button');
-        warBtn.textContent = "Start War Game";
-        warBtn.style.position = "absolute";
-        warBtn.style.bottom = "20px";
-        warBtn.style.left = "50%";
-        warBtn.style.transform = "translateX(-50%)";
-        warBtn.style.zIndex = 10;
-        warBtn.style.background = "var(--accent)";
-        warBtn.style.color = "#000";
-        warBtn.style.fontWeight = "bold";
-        warBtn.style.padding = "10px 24px";
-        warBtn.style.border = "none";
-        warBtn.style.borderRadius = "8px";
-        warBtn.style.cursor = "pointer";
-        warBtn.onclick = function(e) {
-            e.stopPropagation();
-            playerScore = 0; aiScore = 0; warActive = true;
-            warBtn.style.display = "none";
-            showWarStatus('Game started! Click anywhere on the map to play a round.');
-        };
-        panel.appendChild(warBtn);
-        // Play round on map click (anywhere except the button)
-        panel.addEventListener('click', function(e) {
-            // If click is on the button or inside the button, ignore
-            if (warBtn.contains(e.target)) return;
-            // --- CLICK EFFECT ---
-            const rect = panel.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const effect = document.createElement('div');
-            effect.style.position = 'absolute';
-            effect.style.left = `${x - 25}px`;
-            effect.style.top = `${y - 25}px`;
-            effect.style.width = '50px';
-            effect.style.height = '50px';
-            effect.style.borderRadius = '50%';
-            effect.style.pointerEvents = 'none';
-            effect.style.background = 'rgba(0,200,150,0.25)';
-            effect.style.boxShadow = '0 0 16px 8px var(--accent)';
-            effect.style.zIndex = 20;
-            effect.style.animation = 'mapClickPulse 0.7s ease-out forwards';
-            panel.appendChild(effect);
-            setTimeout(() => effect.remove(), 700);
-            // --- END CLICK EFFECT ---
-            if (!warActive) return;
-            playRound();
+        
+        // Show explosion animation
+        function showExplosionAnimation() {
+            attackAnimation.style.display = 'block';
+            attackAnimation.innerHTML = '';
+            
+            // Create explosion elements
+            for (let i = 0; i < 5; i++) {
+                const explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                
+                // Random position within the selected country
+                const countryPos = countryData[state.selectedCountry];
+                const leftRange = parseInt(countryPos.left);
+                const topRange = parseInt(countryPos.top);
+                const widthRange = parseInt(countryPos.width);
+                const heightRange = parseInt(countryPos.height);
+                
+                const x = leftRange + Math.random() * widthRange;
+                const y = topRange + Math.random() * heightRange;
+                
+                explosion.style.left = `${x}%`;
+                explosion.style.top = `${y}%`;
+                explosion.style.animationDelay = `${i * 0.2}s`;
+                
+                attackAnimation.appendChild(explosion);
+            }
+            
+            // Hide animation after completion
+            setTimeout(() => {
+                attackAnimation.style.display = 'none';
+            }, 2000);
+        }
+        
+        // Mark bombed area on map
+        function markBombedArea() {
+            const bombedArea = document.createElement('div');
+            bombedArea.className = 'bombed-area';
+            
+            // Position based on selected country
+            const pos = countryData[state.selectedCountry];
+            bombedArea.style.left = pos.left;
+            bombedArea.style.top = pos.top;
+            bombedArea.style.width = pos.width;
+            bombedArea.style.height = pos.height;
+            
+            mapContainer.appendChild(bombedArea);
+            state.bombedAreas.push(bombedArea);
+            
+            // Limit number of bombed areas shown
+            if (state.bombedAreas.length > 3) {
+                const oldest = state.bombedAreas.shift();
+                oldest.remove();
+            }
+        }
+        
+        // Calculate operation results
+        function calculateResults() {
+            const country = state.selectedCountry;
+            const weapon = state.selectedWeapon;
+            const { aircraft, ships, submarines, drones } = state.units;
+            
+            // Base effectiveness based on weapon type
+            const weaponEffectiveness = {
+                drone: 0.8,
+                conventional: 1,
+                bunker: 1.5,
+                thermobaric: 2,
+                nuclear: 3
+            };
+            
+            // Calculate total power
+            const airPower = aircraft * 3 + drones * 2;
+            const navalPower = ships * 2 + submarines * 4;
+            const totalPower = (airPower + navalPower) * weaponEffectiveness[weapon];
+            
+            // Determine success level
+            let successLevel;
+            if (totalPower < 10) successLevel = "Failure";
+            else if (totalPower < 25) successLevel = "Partial Success";
+            else if (totalPower < 50) successLevel = "Success";
+            else successLevel = "Overwhelming Success";
+            
+            // Generate damage report
+            const infrastructureDamage = Math.min(100, Math.floor(totalPower * 1.5));
+            const militaryDamage = Math.min(100, Math.floor(totalPower * 2));
+            const civilianImpact = Math.min(100, Math.floor(totalPower * 0.7));
+            
+            // Generate report details
+            const details = [];
+            
+            if (aircraft > 0) {
+                details.push(`${aircraft} fighter jet${aircraft > 1 ? 's' : ''} conducted aerial strikes.`);
+            }
+            
+            if (drones > 0) {
+                details.push(`${drones} drone squadron${drones > 1 ? 's' : ''} carried out precision strikes.`);
+            }
+            
+            if (ships > 0) {
+                details.push(`${ships} warship${ships > 1 ? 's' : ''} launched cruise missiles.`);
+            }
+            
+            if (submarines > 0) {
+                details.push(`${submarines} submarine${submarines > 1 ? 's' : ''} fired torpedoes and missiles.`);
+            }
+            
+            details.push(`The ${weapon.replace(/\b\w/g, l => l.toUpperCase())} warhead${weapon === 'nuclear' ? ' created a devastating blast.' : ' caused significant damage.'}`);
+            
+            return {
+                country,
+                weapon,
+                successLevel,
+                infrastructureDamage,
+                militaryDamage,
+                civilianImpact,
+                details
+            };
+        }
+        
+        // Display results
+        function displayResults(result, economicReport) {
+            let html = `
+                <h4>OPERATION REPORT: TARGET ${result.country.toUpperCase()}</h4>
+                <p><strong>Status:</strong> <span style="color: ${getStatusColor(result.successLevel)}">${result.successLevel}</span></p>
+                <div style="display: flex; gap: 15px; margin: 15px 0;">
+                    <div style="flex: 1; background: rgba(179, 57, 57, 0.3); padding: 10px; border-radius: 6px;">
+                        <strong>Infrastructure Damage:</strong> ${result.infrastructureDamage}%
+                    </div>
+                    <div style="flex: 1; background: rgba(179, 57, 57, 0.3); padding: 10px; border-radius: 6px;">
+                        <strong>Military Damage:</strong> ${result.militaryDamage}%
+                    </div>
+                    <div style="flex: 1; background: rgba(179, 57, 57, 0.3); padding: 10px; border-radius: 6px;">
+                        <strong>Civilian Impact:</strong> ${result.civilianImpact}%
+                    </div>
+                </div>
+                <h4 style="margin-top: 15px;">OPERATION DETAILS:</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+            `;
+            
+            result.details.forEach(detail => {
+                html += `<li>${detail}</li>`;
+            });
+            
+            html += `
+                </ul>
+                ${economicReport}
+                <p style="margin-top: 15px; font-style: italic; border-top: 1px solid #2a5a8a; padding-top: 10px;">
+                    Total operations conducted: ${state.totalOperations + 1}<br>
+                    Remaining budget: $${state.budget.toLocaleString()}M<br>
+                    Controlled territories: ${state.controlledCountries.length}
+            `;
+            
+            if (state.loanActive) {
+                html += `<br>Operations until debt repayment: ${5 - state.operationsSinceLoan}`;
+            }
+            
+            html += `</p>`;
+            
+            resultContent.innerHTML = html;
+        }
+        
+        // Get color for status
+        function getStatusColor(status) {
+            switch(status) {
+                case "Failure": return "#f44336";
+                case "Partial Success": return "#ff9800";
+                case "Success": return "#4caf50";
+                case "Overwhelming Success": return "#00bcd4";
+                default: return "#e0e0e0";
+            }
+        }
+        
+        // Initialize the game when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initGame);
+        
+        // Event listeners for weapons
+        weapons.forEach(weapon => {
+            weapon.addEventListener('click', () => {
+                const cost = parseInt(weapon.dataset.cost);
+                if (cost > state.budget || weapon.classList.contains('disabled')) return;
+                
+                weapons.forEach(w => w.classList.remove('selected'));
+                weapon.classList.add('selected');
+                state.selectedWeapon = weapon.dataset.weapon;
+                updateLaunchButton();
+            });
         });
-        // Add keyframes for the click effect (only once)
-        if (!document.getElementById('mapClickPulseStyle')) {
-            const style = document.createElement('style');
-            style.id = 'mapClickPulseStyle';
-            style.innerHTML = `@keyframes mapClickPulse {
-                0% { opacity: 1; transform: scale(0.7); }
-                70% { opacity: 0.7; transform: scale(1.2); }
-                100% { opacity: 0; transform: scale(2); }
-            }`;
-            document.head.appendChild(style);
-        }
-    });
-})();
-</script>
+        
+        // Event listeners for unit controls
+        minusBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const unit = btn.dataset.unit;
+                if (state.units[unit] > 0) {
+                    state.units[unit]--;
+                    countValues[unit].textContent = state.units[unit];
+                    state.budget += state.unitCosts[unit];
+                    updateBudgetDisplay();
+                    updateLaunchButton();
+                    updateWeaponAvailability();
+                }
+            });
+        });
+        
+        plusBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const unit = btn.dataset.unit;
+                const cost = state.unitCosts[unit];
+                
+                if (state.budget >= cost) {
+                    state.units[unit]++;
+                    countValues[unit].textContent = state.units[unit];
+                    state.budget -= cost;
+                    updateBudgetDisplay();
+                    updateLaunchButton();
+                    updateWeaponAvailability();
+                }
+            });
+        });
+        
+        // Launch button event listener
+        launchBtn.addEventListener('click', launchOperation);
+    </script>
 </body>
 </html>
